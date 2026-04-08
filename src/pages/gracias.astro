@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout 
+  title="¡Gracias por tu mensaje!"
+  description="Hemos recibido tu solicitud de cotización."
+>
+  <div class="gracias">
+    <h1>¡Gracias!</h1>
+    <p>Hemos recibido tu solicitud. Te contactaremos lo más pronto posible.</p>
+    <a href="/">← Volver al inicio</a>
+  </div>
+</Layout>
+
+<style>
+  .gracias {
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    gap: 1.5rem;
+    padding: 4rem 2rem;
+  }
+
+  .gracias h1 {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+  }
+
+  .gracias p {
+    font-size: 1.1rem;
+    color: #555;
+  }
+
+  .gracias a {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+</style>

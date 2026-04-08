@@ -1,0 +1,120 @@
+---
+import { Image } from "astro:assets";
+import poliuretano from '../assets/poliuretano.webp';
+
+const atributos = [
+  "Conductividad térmica desde 0.022 W/mK",
+  "Disponible en espesores de 60mm a 200mm",
+  "Revestimiento apto para ambientes húmedos y lavado industrial",
+  "Cumple normativas TIF, FDA y HACCP",
+  "Instalación rápida con sistema machihembrado",
+];
+---
+
+<section class="solucion fade-in" id="soluciones">
+  <div class="solucion__container">
+    <div class="solucion__imagen">
+      <Image
+        src={poliuretano}
+        alt="Panel de poliuretano para cuarto frío"
+        width={600}
+        height={400}
+        format="webp"
+        quality={80}
+      />
+    </div>
+    <div class="solucion__contenido">
+      <h2 class="solucion__titulo">
+        Panel de Poliuretano para Cuarto Frío — Diseñado para la Industria
+      </h2>
+      <p class="solucion__texto">
+        Nuestros paneles están fabricados con núcleo de poliuretano de alta
+        densidad (PUR/PIR), revestimiento metálico y juntas herméticas,
+        garantizando el sellado perfecto que exige la industria alimentaria,
+        farmacéutica y logística.
+      </p>
+      <ul class="solucion__lista">
+        {
+          atributos.map((a) => (
+            <li class="solucion__item">
+              <span class="solucion__check">✓</span>
+              {a}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .solucion {
+    padding: 5rem 2rem;
+    background-color: var(--color-white);
+  }
+
+  .solucion__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .solucion__imagen img {
+    border-radius: 8px;
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+  }
+
+  .solucion__titulo {
+    color: var(--color-primary);
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 1.25rem;
+  }
+
+  .solucion__texto {
+    color: #555;
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 1.75rem;
+  }
+
+  .solucion__lista {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .solucion__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    font-size: 0.95rem;
+    color: var(--color-text);
+    line-height: 1.5;
+  }
+
+  .solucion__check {
+    color: var(--color-accent);
+    font-weight: 700;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

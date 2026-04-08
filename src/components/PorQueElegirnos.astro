@@ -1,0 +1,85 @@
+---
+const stats = [
+  { icono: "🕐", numero: "+10", texto: "Años de experiencia en soluciones de aislamiento industrial" },
+  { icono: "🏗️", numero: "+350", texto: "Proyectos instalados en la región centroamericana" },
+  { icono: "💬", numero: "Asesoría", texto: "Te ayudamos a elegir el panel correcto para tu proyecto" },
+  { icono: "🏅", numero: "Certificaciones", texto: "Internacionales en materiales y procesos" }
+];
+---
+
+<section class="stats fade-in">
+  <div class="stats__container">
+    <h2 class="stats__titulo">¿Por qué elegirnos?</h2>
+    <div class="stats__grid">
+      {stats.map((s) => (
+        <div class="stats__card">
+          <span class="stats__icono">{s.icono}</span>
+          <span class="stats__numero">{s.numero}</span>
+          <p class="stats__texto">{s.texto}</p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .stats {
+    padding: 5rem 2rem;
+    background-color: var(--color-white);
+  }
+
+  .stats__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .stats__titulo {
+    text-align: center;
+    color: var(--color-primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+  }
+
+  .stats__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+
+  .stats__card {
+    text-align: center;
+    padding: 2rem 1rem;
+    border-top: 3px solid var(--color-accent);
+  }
+
+  .stats__icono {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.75rem;
+  }
+
+  .stats__numero {
+    display: block;
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+  }
+
+  .stats__texto {
+    color: #555;
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

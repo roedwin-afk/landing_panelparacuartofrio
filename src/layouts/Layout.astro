@@ -1,0 +1,79 @@
+---
+const { title, description } = Astro.props;
+---
+
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Fuente Inter desde Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <style is:global>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --color-primary: #2c547a;
+        --color-accent: #e8a020;
+        --color-text: #1e1e1e;
+        --color-white: #ffffff;
+        --color-bg: #ffffff;
+        --font-base: "Inter", sans-serif;
+      }
+
+      body {
+        font-family: var(--font-base);
+        font-size: 16px;
+        color: var(--color-text);
+        background-color: var(--color-bg);
+      }
+
+      img {
+        max-width: 100%;
+        display: block;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <slot />
+    <script>
+      const elements = document.querySelectorAll(".fade-in");
+  
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("visible");
+            }
+          });
+        },
+        {
+          threshold: 0.1,
+        },
+      );
+  
+      elements.forEach((el) => observer.observe(el));
+    </script>
+  </body>
+</html>

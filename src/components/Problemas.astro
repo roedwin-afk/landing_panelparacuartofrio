@@ -1,0 +1,84 @@
+---
+const problemas = [
+  {
+    icono: "🌡️",
+    titulo: "Pérdidas de temperatura",
+    texto: "Una cámara mal aislada puede incrementar hasta un 40% el consumo energético y comprometer la cadena de frío."
+  },
+  {
+    icono: "⚠️",
+    titulo: "Riesgos de cumplimiento",
+    texto: "Las normativas sanitarias exigen materiales certificados. Un panel inadecuado puede costar una multa o el cierre del proceso."
+  },
+  {
+    icono: "🔧",
+    titulo: "Instalaciones lentas y costosas",
+    texto: "Los sistemas tradicionales requieren más tiempo, más mano de obra y más mantenimiento."
+  }
+];
+---
+
+<section class="problemas fade-in">
+  <div class="problemas__container">
+    {problemas.map((p) => (
+      <div class="problemas__card">
+        <span class="problemas__icono">{p.icono}</span>
+        <h3 class="problemas__titulo">{p.titulo}</h3>
+        <p class="problemas__texto">{p.texto}</p>
+      </div>
+    ))}
+  </div>
+</section>
+
+<style>
+  .problemas {
+    padding: 4rem 2rem;
+    background-color: #F8F9FA;
+  }
+
+  .problemas__container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .problemas__card {
+    background: var(--color-white);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  .problemas__icono {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .problemas__titulo {
+    color: var(--color-primary);
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+  }
+
+  .problemas__texto {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+</style>

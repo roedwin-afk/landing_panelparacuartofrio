@@ -1,0 +1,72 @@
+---
+import { Image } from "astro:assets";
+import logo from "../assets/logo.png";
+---
+
+<header class="header">
+    <div class="header__container">
+        <div class="header__logo">
+            <!-- <span class="header__logo-text">Panel Para Cuarto Frío</span> -->
+            <a href="/">
+                <Image
+                    src={logo}
+                    alt="Logo"
+                    class="header__logo-img"
+                    width={200}
+                    height={50}
+                    loading="eager"
+                />
+            </a>
+        </div>
+        <nav class="header__nav">
+            <a href="#soluciones">Soluciones</a>
+            <a href="#aplicaciones">Aplicaciones</a>
+            <a href="/contacto">Contacto</a>
+        </nav>
+    </div>
+</header>
+
+<style>
+    .header {
+        background-color: var(--color-primary);
+        padding: 1rem 2rem;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+    }
+
+    .header__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .header__logo-text {
+        color: var(--color-white);
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .header__nav {
+        display: flex;
+        gap: 2rem;
+    }
+
+    .header__nav a {
+        color: var(--color-white);
+        font-weight: 600;
+        font-size: 0.95rem;
+        transition: color 0.2s;
+    }
+
+    .header__nav a:hover {
+        color: var(--color-accent);
+    }
+    .header__logo a {
+        display: inline-block;
+        cursor: pointer;
+    }
+</style>
