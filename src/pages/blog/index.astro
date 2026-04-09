@@ -1,0 +1,178 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection } from "astro:content";
+
+import type { CollectionEntry } from "astro:content";
+const allPosts = await getCollection("blog");
+console.log("Todos los posts:", allPosts);
+console.log("Total:", allPosts.length);
+
+
+const posts: CollectionEntry<"blog">[] = (await getCollection("blog"))
+    .filter((post: CollectionEntry<"blog">) => !post.data.draft)
+    .sort(
+        (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+            b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    );
+---
+
+<Layout
+    title="Blog | Panel Para Cuarto Frío"
+    description="Artículos sobre paneles para cuartos fríos, aislamiento industrial y soluciones de refrigeración."
+>
+    <Header />
+
+    <main class="blog">
+        <div class="blog__container">
+            <div class="blog__header">
+                <h1 class="blog__title">Blog</h1>
+                <p class="blog__description">
+                    Información sobre paneles de poliuretano, aislamiento
+                    industrial y proyectos de refrigeración en El Salvador y
+                    Centroamérica.
+                </p>
+            </div>
+
+            <div class="blog__grid">
+                {
+                    posts.map((post) => (
+                        <article class="blog-card">
+                            {post.data.heroImage && (
+                                <img
+                                    src={post.data.heroImage}
+                                    alt={post.data.title}
+                                    class="blog-card__image"
+                                />
+                            )}
+
+                            <div class="blog-card__content">
+                                <p class="blog-card__date">
+                                    {post.data.pubDate.toLocaleDateString(
+                                        "en-US",
+                                        {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                        },
+                                    )}
+                                </p>
+
+                                <h2 class="blog-card__title">
+                                    <a href={`/blog/${post.id}/`}>
+                                        {post.data.title}
+                                    </a>
+                                </h2>
+
+                                <p class="blog-card__description">
+                                    {post.data.description}
+                                </p>
+
+                                <a
+                                    href={`/blog/${post.id}/`}
+                                    class="blog-card__link"
+                                >
+                                    Leer más →
+                                </a>
+                            </div>
+                        </article>
+                    ))
+                }
+            </div>
+        </div>
+    </main>
+
+    <Footer />
+</Layout>
+
+<style>
+    .blog {
+        padding: 4rem 2rem;
+        background-color: #f8f9fa;
+    }
+
+    .blog__container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .blog__header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .blog__title {
+        font-size: 2.5rem;
+        color: var(--color-primary);
+        margin-bottom: 1rem;
+    }
+
+    .blog__description {
+        max-width: 700px;
+        margin: 0 auto;
+        color: #555;
+        line-height: 1.7;
+    }
+
+    .blog__grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+
+    .blog-card {
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    .blog-card__image {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+
+    .blog-card__content {
+        padding: 1.5rem;
+    }
+
+    .blog-card__date {
+        font-size: 0.85rem;
+        color: #777;
+        margin-bottom: 0.75rem;
+    }
+
+    .blog-card__title {
+        font-size: 1.2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .blog-card__title a {
+        color: var(--color-primary);
+    }
+
+    .blog-card__description {
+        color: #555;
+        line-height: 1.6;
+        margin-bottom: 1rem;
+    }
+
+    .blog-card__link {
+        color: var(--color-accent);
+        font-weight: 700;
+    }
+
+    @media (max-width: 900px) {
+        .blog__grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .blog__grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

@@ -1,0 +1,146 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+
+type BlogPost = CollectionEntry<"blog">;
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog");
+
+  return posts
+    .filter((post: BlogPost) => !post.data.draft)
+    .map((post: BlogPost) => ({
+      params: { slug: post.id },
+      props: { post },
+    }));
+}
+
+const { post } = Astro.props as { post: BlogPost };
+const { Content } = await render(post);
+---
+
+<Layout
+  title={`${post.data.title} | Panel Para Cuarto Frío`}
+  description={post.data.description}
+>
+  <Header />
+
+  <main class="post">
+    <article class="post__container">
+      <header class="post__header">
+        <p class="post__date">
+          {
+            post.data.pubDate.toLocaleDateString("es-SV", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })
+          }
+        </p>
+
+        <h1 class="post__title">{post.data.title}</h1>
+        <p class="post__description">{post.data.description}</p>
+      </header>
+
+      {
+        post.data.heroImage && (
+          <img
+            src={post.data.heroImage}
+            alt={post.data.title}
+            class="post__image"
+          />
+        )
+      }
+
+      <div class="post__content">
+        <Content />
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .post {
+    padding: 4rem 2rem;
+    background-color: #fff;
+  }
+
+  .post__container {
+    max-width: 850px;
+    margin: 0 auto;
+  }
+
+  .post__header {
+    margin-bottom: 2rem;
+    text-align: center;
+  }
+
+  .post__date {
+    color: #777;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+  }
+
+  .post__title {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  .post__description {
+    color: #555;
+    font-size: 1.05rem;
+    line-height: 1.7;
+  }
+
+  .post__image {
+    width: 100%;
+    max-height: 450px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 2rem;
+  }
+
+  .post__content {
+    color: var(--color-text);
+    line-height: 1.8;
+  }
+
+  .post__content :global(h2) {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+  }
+
+  .post__content :global(h3) {
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: var(--color-primary);
+  }
+
+  .post__content :global(p) {
+    margin-bottom: 1rem;
+  }
+
+  .post__content :global(ul),
+  .post__content :global(ol) {
+    margin-bottom: 1rem;
+    padding-left: 1.5rem;
+  }
+
+  .post__content :global(a) {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .post__content :global(img) {
+    border-radius: 8px;
+    margin: 1.5rem 0;
+  }
+</style>

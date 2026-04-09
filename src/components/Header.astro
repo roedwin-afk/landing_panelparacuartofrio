@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import logo from "../assets/logo.png";
+import Menu from "./Menu.astro";
 ---
 
 <header class="header">
@@ -19,10 +20,9 @@ import logo from "../assets/logo.png";
             </a>
         </div>
         <nav class="header__nav">
-            <a href="#soluciones">Soluciones</a>
-            <a href="#aplicaciones">Aplicaciones</a>
-            <a href="/contacto">Contacto</a>
+            <Menu />
         </nav>
+        
     </div>
 </header>
 
@@ -55,16 +55,6 @@ import logo from "../assets/logo.png";
         gap: 2rem;
     }
 
-    .header__nav a {
-        color: var(--color-white);
-        font-weight: 600;
-        font-size: 0.95rem;
-        transition: color 0.2s;
-    }
-
-    .header__nav a:hover {
-        color: var(--color-accent);
-    }
     .header__logo a {
         display: inline-block;
         cursor: pointer;
