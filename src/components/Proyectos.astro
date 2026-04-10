@@ -1,109 +1,129 @@
 ---
-import { Image } from 'astro:assets';
-import proyecto1 from '../assets/proyecto1.jpg';
-import proyecto2 from '../assets/proyecto2.jpg';
-import proyecto3 from '../assets/proyecto3.jpg';
+import { Image } from "astro:assets";
+import proyecto1 from "../assets/proyecto1.jpg";
+import proyecto2 from "../assets/proyecto2.jpg";
+import proyecto3 from "../assets/proyecto3.jpg";
 ---
 
 <section class="projects">
   <div class="projects__container">
-
     <div class="projects__header fade-in">
       <h2>Proyectos realizados</h2>
-      <p>
-        Instalaciones reales de paneles para cuartos fríos en El Salvador.
-      </p>
+      <p>Instalaciones reales de paneles para cuartos fríos en El Salvador.</p>
     </div>
 
     <div class="projects__grid">
-
       <div class="project fade-in">
-        <Image src={proyecto1} alt="Cuarto frío para alimentos" width={400} height={300} />
+        <Image
+          src={proyecto1}
+          alt="Cuarto frío para alimentos"
+          width={400}
+          height={300}
+        />
         <div class="project__info">
           <p>Cámara fría para conservación de productos perecederos.</p>
         </div>
       </div>
 
       <div class="project fade-in">
-        <Image src={proyecto2} alt="Cuarto frío industrial" width={400} height={300} />
+        <Image
+          src={proyecto2}
+          alt="Cuarto frío industrial"
+          width={400}
+          height={300}
+        />
         <div class="project__info">
           <p>Instalación de paneles de alta eficiencia térmica.</p>
         </div>
       </div>
 
       <div class="project fade-in">
-        <Image src={proyecto3} alt="Paneles de poliuretano instalados" width={400} height={300} />
+        <Image
+          src={proyecto3}
+          alt="Paneles de poliuretano instalados"
+          width={400}
+          height={300}
+        />
         <div class="project__info">
           <p>Solución personalizada para almacenamiento en frío.</p>
         </div>
       </div>
-
     </div>
-
   </div>
 </section>
 
 <style>
-.projects {
-  padding: 4rem 2rem;
-  background-color: #f7f9fb;
-}
-
-.projects__container {
-  max-width: 1100px;
-  margin: 0 auto;
-}
-
-.projects__header {
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-.projects__header h2 {
-  font-size: 1.8rem;
-  margin-bottom: 0.5rem;
-  color: var(--color-primary);
-}
-.projects__header p {
-  color: #555;
-  font-size: 1rem;
-}
-
-.projects__grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.5rem;
-}
-
-.project {
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  transition: transform 0.3s ease;
-}
-
-.project:hover {
-  transform: translateY(-5px);
-}
-
-.project__info {
-  padding: 1rem;
-}
-
-.project__info h3 {
-  font-size: 1rem;
-  margin-bottom: 0.3rem;
-}
-
-.project__info p {
-  font-size: 0.9rem;
-  opacity: 0.7;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .projects__grid {
-    grid-template-columns: 1fr;
+  .projects {
+    padding: 4rem 2rem;
+    background-color: #f7f9fb;
   }
-}
+
+  .projects__container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .projects__header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .projects__header h2 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: var(--color-primary);
+  }
+  .projects__header p {
+    color: #555;
+    font-size: 1rem;
+  }
+
+  .projects__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+  }
+
+  .project:hover {
+    transform: translateY(-5px);
+  }
+
+  .project__info {
+    padding: 1rem;
+  }
+
+  .project__info h3 {
+    font-size: 1rem;
+    margin-bottom: 0.3rem;
+  }
+
+  .project__info p {
+    font-size: 0.9rem;
+    opacity: 0.7;
+  }
+
+  @media (max-width: 768px) {
+    .projects__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .projects__grid {
+      grid-template-columns: 1fr;
+    }
+
+    .project img {
+      height: 200px;
+      object-fit: cover;
+      width: 100%;
+    }
+  }
 </style>

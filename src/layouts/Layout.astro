@@ -34,8 +34,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <!-- <link rel="icon" type="image/png" href="/favicon.png" /> -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
-
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
 
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 
@@ -56,12 +58,16 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
         --color-bg: #ffffff;
         --font-base: "Inter", sans-serif;
       }
+      html {
+        overflow-x: hidden;
+      }
 
       body {
         font-family: var(--font-base);
         font-size: 16px;
         color: var(--color-text);
         background-color: var(--color-bg);
+        overflow-x: hidden;
       }
 
       img {
@@ -77,10 +83,10 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <slot />
-    <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script>
+    <!-- <script src="https://unpkg.com/decap-cms@^3.1.2/dist/decap-cms.js"></script> -->
     <script>
       const elements = document.querySelectorAll(".fade-in");
-  
+
       const observer = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
@@ -93,7 +99,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
           threshold: 0.1,
         },
       );
-  
+
       elements.forEach((el) => observer.observe(el));
     </script>
   </body>

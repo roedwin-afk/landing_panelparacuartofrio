@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import panelDePoliuretano from '../assets/paneles-de-poliuretano-en-el-salvador.webp';
+import panelDePoliuretano from "../assets/paneles-de-poliuretano-en-el-salvador.webp";
 ---
 
 <section class="hero fade-inn">
@@ -91,5 +91,24 @@ import panelDePoliuretano from '../assets/paneles-de-poliuretano-en-el-salvador.
   .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .hero {
+      padding: 3rem 1.5rem;
+    }
+
+    .hero__container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .hero__title {
+      font-size: 1.5rem;
+    }
+
+    .hero__image .hero__image_class {
+      height: 250px;
+    }
   }
 </style>

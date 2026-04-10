@@ -2,25 +2,18 @@
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { getCollection } from "astro:content";
 
-import type { CollectionEntry } from "astro:content";
-const allPosts = await getCollection("blog");
-console.log("Todos los posts:", allPosts);
-console.log("Total:", allPosts.length);
+const response = await fetch(
+    "http://panelparacuartofrio.local/wp-json/wp/v2/posts?_embed&per_page=100",
+);
+const posts = await response.json();
 
-
-const posts: CollectionEntry<"blog">[] = (await getCollection("blog"))
-    .filter((post: CollectionEntry<"blog">) => !post.data.draft)
-    .sort(
-        (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
-            b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-    );
+const base = import.meta.env.BASE_URL;
 ---
 
 <Layout
     title="Blog | Panel Para Cuarto Frío"
-    description="Artículos sobre paneles para cuartos fríos, aislamiento industrial y soluciones de refrigeración."
+    description="Información sobre paneles de poliuretano, aislamiento industrial y proyectos de refrigeración."
 >
     <Header />
 
@@ -37,20 +30,23 @@ const posts: CollectionEntry<"blog">[] = (await getCollection("blog"))
 
             <div class="blog__grid">
                 {
-                    posts.map((post) => (
+                    posts.map((post: any) => (
                         <article class="blog-card">
-                            {post.data.heroImage && (
+                            {post._embedded?.["wp:featuredmedia"]?.[0]
+                                ?.source_url && (
                                 <img
-                                    src={post.data.heroImage}
-                                    alt={post.data.title}
+                                    src={
+                                        post._embedded["wp:featuredmedia"][0]
+                                            .source_url
+                                    }
+                                    alt={post.title.rendered}
                                     class="blog-card__image"
                                 />
                             )}
-
                             <div class="blog-card__content">
                                 <p class="blog-card__date">
-                                    {post.data.pubDate.toLocaleDateString(
-                                        "en-US",
+                                    {new Date(post.date).toLocaleDateString(
+                                        "es-SV",
                                         {
                                             year: "numeric",
                                             month: "long",
@@ -58,19 +54,18 @@ const posts: CollectionEntry<"blog">[] = (await getCollection("blog"))
                                         },
                                     )}
                                 </p>
-
                                 <h2 class="blog-card__title">
-                                    <a href={`/blog/${post.id}/`}>
-                                        {post.data.title}
-                                    </a>
+                                    <a
+                                        href={`${base}blog/${post.slug}/`}
+                                        set:html={post.title.rendered}
+                                    />
                                 </h2>
-
-                                <p class="blog-card__description">
-                                    {post.data.description}
-                                </p>
-
+                                <p
+                                    class="blog-card__description"
+                                    set:html={post.excerpt.rendered}
+                                />
                                 <a
-                                    href={`/blog/${post.id}/`}
+                                    href={`${base}blog/${post.slug}/`}
                                     class="blog-card__link"
                                 >
                                     Leer más →
@@ -85,7 +80,6 @@ const posts: CollectionEntry<"blog">[] = (await getCollection("blog"))
 
     <Footer />
 </Layout>
-
 <style>
     .blog {
         padding: 4rem 2rem;

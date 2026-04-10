@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import poliuretano from '../assets/poliuretano.webp';
+import poliuretano from "../assets/poliuretano.webp";
 
 const atributos = [
   "Conductividad térmica desde 0.022 W/mK",
@@ -116,5 +116,12 @@ const atributos = [
   .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .solucion__container {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
   }
 </style>

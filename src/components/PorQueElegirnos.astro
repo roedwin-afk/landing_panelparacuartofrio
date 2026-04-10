@@ -1,9 +1,25 @@
 ---
 const stats = [
-  { icono: "🕐", numero: "+10", texto: "Años de experiencia en soluciones de aislamiento industrial" },
-  { icono: "🏗️", numero: "+350", texto: "Proyectos instalados en la región centroamericana" },
-  { icono: "💬", numero: "Asesoría", texto: "Te ayudamos a elegir el panel correcto para tu proyecto" },
-  { icono: "🏅", numero: "Certificaciones", texto: "Internacionales en materiales y procesos" }
+  {
+    icono: "🕐",
+    numero: "+10",
+    texto: "Años de experiencia en soluciones de aislamiento industrial",
+  },
+  {
+    icono: "🏗️",
+    numero: "+350",
+    texto: "Proyectos instalados en la región centroamericana",
+  },
+  {
+    icono: "💬",
+    numero: "Asesoría",
+    texto: "Te ayudamos a elegir el panel correcto para tu proyecto",
+  },
+  {
+    icono: "🏅",
+    numero: "Certificaciones",
+    texto: "Internacionales en materiales y procesos",
+  },
 ];
 ---
 
@@ -11,13 +27,15 @@ const stats = [
   <div class="stats__container">
     <h2 class="stats__titulo">¿Por qué elegirnos?</h2>
     <div class="stats__grid">
-      {stats.map((s) => (
-        <div class="stats__card">
-          <span class="stats__icono">{s.icono}</span>
-          <span class="stats__numero">{s.numero}</span>
-          <p class="stats__texto">{s.texto}</p>
-        </div>
-      ))}
+      {
+        stats.map((s) => (
+          <div class="stats__card">
+            <span class="stats__icono">{s.icono}</span>
+            <span class="stats__numero">{s.numero}</span>
+            <p class="stats__texto">{s.texto}</p>
+          </div>
+        ))
+      }
     </div>
   </div>
 </section>
@@ -81,5 +99,11 @@ const stats = [
   .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+  @media (max-width: 768px) {
+    .stats__grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+    }
   }
 </style>

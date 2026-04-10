@@ -3,37 +3,42 @@ const problemas = [
   {
     icono: "🌡️",
     titulo: "Pérdidas de temperatura",
-    texto: "Una cámara mal aislada puede incrementar hasta un 40% el consumo energético y comprometer la cadena de frío."
+    texto:
+      "Una cámara mal aislada puede incrementar hasta un 40% el consumo energético y comprometer la cadena de frío.",
   },
   {
     icono: "⚠️",
     titulo: "Riesgos de cumplimiento",
-    texto: "Las normativas sanitarias exigen materiales certificados. Un panel inadecuado puede costar una multa o el cierre del proceso."
+    texto:
+      "Las normativas sanitarias exigen materiales certificados. Un panel inadecuado puede costar una multa o el cierre del proceso.",
   },
   {
     icono: "🔧",
     titulo: "Instalaciones lentas y costosas",
-    texto: "Los sistemas tradicionales requieren más tiempo, más mano de obra y más mantenimiento."
-  }
+    texto:
+      "Los sistemas tradicionales requieren más tiempo, más mano de obra y más mantenimiento.",
+  },
 ];
 ---
 
 <section class="problemas fade-in">
   <div class="problemas__container">
-    {problemas.map((p) => (
-      <div class="problemas__card">
-        <span class="problemas__icono">{p.icono}</span>
-        <h3 class="problemas__titulo">{p.titulo}</h3>
-        <p class="problemas__texto">{p.texto}</p>
-      </div>
-    ))}
+    {
+      problemas.map((p) => (
+        <div class="problemas__card">
+          <span class="problemas__icono">{p.icono}</span>
+          <h3 class="problemas__titulo">{p.titulo}</h3>
+          <p class="problemas__texto">{p.texto}</p>
+        </div>
+      ))
+    }
   </div>
 </section>
 
 <style>
   .problemas {
     padding: 4rem 2rem;
-    background-color: #F8F9FA;
+    background-color: #f8f9fa;
   }
 
   .problemas__container {
@@ -49,7 +54,7 @@ const problemas = [
     border-radius: 8px;
     padding: 2rem;
     text-align: center;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
   }
 
   .problemas__icono {
@@ -80,5 +85,11 @@ const problemas = [
   .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .problemas__container {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

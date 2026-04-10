@@ -1,10 +1,9 @@
 ---
 import { Image } from "astro:assets";
-import industriaAlimentaria from '../assets/Industria alimentaria.png';
-import sectorFarmaceutico from '../assets/Sector farmacéutico.webp';
-import logisticaYDistribucion from '../assets/Logística y distribución.jpg';
-import agroindustria from '../assets/Agroindustria.jpg';
-
+import industriaAlimentaria from "../assets/Industria alimentaria.png";
+import sectorFarmaceutico from "../assets/Sector farmacéutico.webp";
+import logisticaYDistribucion from "../assets/Logística y distribución.jpg";
+import agroindustria from "../assets/Agroindustria.jpg";
 
 const aplicaciones = [
   {
@@ -125,5 +124,17 @@ const aplicaciones = [
   .fade-in.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  @media (max-width: 768px) {
+    .aplicaciones__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .aplicaciones__grid {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

@@ -1,30 +1,26 @@
 ---
+export const prerender = true;
+
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
-import { getCollection, render } from "astro:content";
-import type { CollectionEntry } from "astro:content";
-
-type BlogPost = CollectionEntry<"blog">;
 
 export async function getStaticPaths() {
-  const posts = await getCollection("blog");
+  const response = await fetch("http://panelparacuartofrio.local/wp-json/wp/v2/posts?_embed&per_page=100");
+  const posts = await response.json();
 
-  return posts
-    .filter((post: BlogPost) => !post.data.draft)
-    .map((post: BlogPost) => ({
-      params: { slug: post.id },
-      props: { post },
-    }));
+  return posts.map((post: any) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
 }
 
-const { post } = Astro.props as { post: BlogPost };
-const { Content } = await render(post);
+const { post } = Astro.props as { post: any };
 ---
 
 <Layout
-  title={`${post.data.title} | Panel Para Cuarto Frío`}
-  description={post.data.description}
+  title={`${post.title.rendered} | Panel Para Cuarto Frío`}
+  description={post.excerpt.rendered.replace(/<[^>]*>/g, "").trim()}
 >
   <Header />
 
@@ -32,32 +28,24 @@ const { Content } = await render(post);
     <article class="post__container">
       <header class="post__header">
         <p class="post__date">
-          {
-            post.data.pubDate.toLocaleDateString("es-SV", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })
-          }
+          {new Date(post.date).toLocaleDateString("es-SV", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </p>
-
-        <h1 class="post__title">{post.data.title}</h1>
-        <p class="post__description">{post.data.description}</p>
+        <h1 class="post__title" set:html={post.title.rendered} />
       </header>
 
-      {
-        post.data.heroImage && (
-          <img
-            src={post.data.heroImage}
-            alt={post.data.title}
-            class="post__image"
-          />
-        )
-      }
+      {post._embedded?.["wp:featuredmedia"]?.[0]?.source_url && (
+        <img
+          src={post._embedded["wp:featuredmedia"][0].source_url}
+          alt={post.title.rendered}
+          class="post__image"
+        />
+      )}
 
-      <div class="post__content">
-        <Content />
-      </div>
+      <div class="post__content" set:html={post.content.rendered} />
     </article>
   </main>
 
@@ -93,12 +81,6 @@ const { Content } = await render(post);
     margin-bottom: 1rem;
   }
 
-  .post__description {
-    color: #555;
-    font-size: 1.05rem;
-    line-height: 1.7;
-  }
-
   .post__image {
     width: 100%;
     max-height: 450px;
@@ -118,29 +100,18 @@ const { Content } = await render(post);
     color: var(--color-primary);
   }
 
-  .post__content :global(h3) {
-    margin-top: 1.5rem;
-    margin-bottom: 0.75rem;
-    color: var(--color-primary);
-  }
-
   .post__content :global(p) {
     margin-bottom: 1rem;
-  }
-
-  .post__content :global(ul),
-  .post__content :global(ol) {
-    margin-bottom: 1rem;
-    padding-left: 1.5rem;
-  }
-
-  .post__content :global(a) {
-    color: var(--color-accent);
-    font-weight: 600;
   }
 
   .post__content :global(img) {
     border-radius: 8px;
     margin: 1.5rem 0;
+    max-width: 100%;
+  }
+
+  .post__content :global(a) {
+    color: var(--color-accent);
+    font-weight: 600;
   }
 </style>
