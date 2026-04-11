@@ -1,12 +1,11 @@
 <section class="contact">
   <div class="contact__container">
-
     <!-- Texto -->
     <div class="contact__info fade-in">
       <h1>Solicita tu cotización</h1>
       <p>
-        Contáctanos para asesorarte en la selección de paneles para tu cámara fría.
-        Te respondemos lo más rápido posible.
+        Contáctanos para asesorarte en la selección de paneles para tu cámara
+        fría. Te respondemos lo más rápido posible.
       </p>
 
       <div class="contact__data">
@@ -17,85 +16,117 @@
     </div>
 
     <!-- Formulario -->
-    <form class="contact__form fade-in" action="https://formspree.io/f/maqlkvyj" method="POST">
+    <form
+      class="contact__form fade-in"
+      action="https://formspree.io/f/maqlkvyj"
+      method="POST"
+    >
       <input type="hidden" name="_next" value="http://localhost:4321/gracias" />
       <input type="text" name="nombre" placeholder="Nombre" required />
-      <input type="email" name="email" placeholder="Correo electrónico" required />
+      <input
+        type="email"
+        name="email"
+        placeholder="Correo electrónico"
+        required
+      />
       <input type="tel" name="telefono" placeholder="Teléfono" />
-      <textarea name="mensaje" rows="5" placeholder="Cuéntanos qué necesitas..." required></textarea>
+      <textarea
+        name="mensaje"
+        rows="5"
+        placeholder="Cuéntanos qué necesitas..."
+        required></textarea>
 
       <button type="submit">Enviar solicitud →</button>
     </form>
-
   </div>
 </section>
 <style>
-.contact {
-  padding: 4rem 2rem;
-}
-
-.contact__container {
-  max-width: 1100px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-}
-
-.contact__info h1 {
-  font-size: 2rem;
-  margin-bottom: 1rem;
-}
-
-.contact__info p {
-  margin-bottom: 1rem;
-  line-height: 1.6;
-}
-
-.contact__data p {
-  font-weight: 600;
-}
-
-.contact__form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.contact__form input,
-.contact__form textarea {
-  padding: 0.9rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  font-family: inherit;
-}
-
-.contact__form button {
-  background-color: var(--color-accent);
-  color: white;
-  padding: 0.9rem;
-  border: none;
-  font-weight: 700;
-  cursor: pointer;
-  border-radius: 4px;
-}
-
-.contact__form button:hover {
-  opacity: 0.9;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .contact__container {
-    grid-template-columns: 1fr;
+  .contact {
+    padding: 4rem 2rem;
   }
-}
+
+  .contact__container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+
+  .contact__info h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .contact__info p {
+    margin-bottom: 1rem;
+    line-height: 1.6;
+  }
+
+  .contact__data p {
+    font-weight: 600;
+  }
+
+  .contact__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .contact__form input,
+  .contact__form textarea {
+    padding: 0.9rem;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-family: inherit;
+  }
+
+  .contact__form button {
+    background-color: var(--color-accent);
+    color: white;
+    padding: 0.9rem;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+
+  .contact__form button:hover {
+    opacity: 0.9;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .contact__container {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact {
+      padding: 3rem 1.5rem;
+    }
+
+    .contact__info h1 {
+      font-size: 1.5rem;
+    }
+
+    .contact__form input,
+    .contact__form textarea {
+      font-size: 1rem;
+    }
+
+    .contact__form button {
+      font-size: 1rem;
+      padding: 1rem;
+    }
+  }
 </style>
 
 <script>
-  window.addEventListener('pageshow', (event) => {
+  window.addEventListener("pageshow", (event) => {
     if (event.persisted) {
-      const form = document.querySelector<HTMLFormElement>('.contact__form');
+      const form = document.querySelector<HTMLFormElement>(".contact__form");
       if (form) form.reset();
     }
   });
