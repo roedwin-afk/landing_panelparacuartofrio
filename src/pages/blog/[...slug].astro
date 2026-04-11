@@ -5,15 +5,57 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 
+const MOCK_POSTS = [
+  {
+    id: 1,
+    slug: "instalacion-cuartos-frios",
+    title: { rendered: "Instalación de Cuartos Fríos: Guía Completa" },
+    content: { rendered: "<p>Contenido...</p>" },
+  },
+  {
+    id: 2,
+    slug: "paneles-aislantes-beneficios",
+    title: { rendered: "Beneficios de los Paneles Aislantes" },
+    content: { rendered: "<p>Contenido...</p>" },
+  },
+];
+
 export async function getStaticPaths() {
-  const response = await fetch(`${import.meta.env.WORDPRESS_API_URL}/posts?_embed&per_page=100`);;
-  const posts = await response.json();
+  return MOCK_POSTS.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+export async function getStaticPaths() {
+  const baseUrl = import.meta.env.WORDPRESS_API_URL;
+
+  let posts = [];
+
+  try {
+    if (!baseUrl) throw new Error("No API URL");
+
+    const response = await fetch(`${baseUrl}/posts?_embed&per_page=100`);
+    posts = await response.json();
+  } catch (error) {
+    console.log("Usando MOCK_POSTS");
+    posts = MOCK_POSTS;
+  }
 
   return posts.map((post: any) => ({
     params: { slug: post.slug },
     props: { post },
   }));
 }
+// export async function getStaticPaths() {
+//   const response = await fetch(`${import.meta.env.WORDPRESS_API_URL}/posts?_embed&per_page=100`);;
+//   const posts = await response.json();
+
+//   return posts.map((post: any) => ({
+//     params: { slug: post.slug },
+//     props: { post },
+//   }));
+// }
 
 const { post } = Astro.props as { post: any };
 ---
