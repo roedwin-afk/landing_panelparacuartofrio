@@ -26,26 +26,6 @@ export async function getStaticPaths() {
     props: { post },
   }));
 }
-
-export async function getStaticPaths() {
-  const baseUrl = import.meta.env.WORDPRESS_API_URL;
-
-  let posts = [];
-
-  try {
-    if (!baseUrl) throw new Error("No API URL");
-
-    const response = await fetch(`${baseUrl}/posts?_embed&per_page=100`);
-    posts = await response.json();
-  } catch (error) {
-    console.log("Usando MOCK_POSTS");
-    posts = MOCK_POSTS;
-  }
-
-  return posts.map((post: any) => ({
-    params: { slug: post.slug },
-    props: { post },
-  }));
 }
 // export async function getStaticPaths() {
 //   const response = await fetch(`${import.meta.env.WORDPRESS_API_URL}/posts?_embed&per_page=100`);;
