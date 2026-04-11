@@ -3,9 +3,7 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 
-const response = await fetch(
-    "http://panelparacuartofrio.local/wp-json/wp/v2/posts?_embed&per_page=100",
-);
+const response = await fetch(`${import.meta.env.WORDPRESS_API_URL}/posts?_embed&per_page=100`);
 const posts = await response.json();
 
 const base = import.meta.env.BASE_URL;
