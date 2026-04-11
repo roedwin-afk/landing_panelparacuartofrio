@@ -3,8 +3,74 @@ import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
 
-const response = await fetch(`${import.meta.env.WORDPRESS_API_URL}/posts?_embed&per_page=100`);
-const posts = await response.json();
+const posts = [
+  {
+    id: 1,
+    date: "2026-04-10T12:00:00",
+    slug: "instalacion-cuartos-frios",
+    title: {
+      rendered: "Instalación de Cuartos Fríos: Guía Completa"
+    },
+    excerpt: {
+      rendered: "Aprende los aspectos clave para instalar un cuarto frío eficiente y duradero."
+    },
+    content: {
+      rendered: "<p>Contenido completo del post sobre instalación de cuartos fríos...</p>"
+    },
+    _embedded: {
+      "wp:featuredmedia": [
+        {
+          source_url: "https://via.placeholder.com/800x400?text=Cuarto+Frio"
+        }
+      ]
+    }
+  },
+  {
+    id: 2,
+    date: "2026-04-08T10:30:00",
+    slug: "paneles-aislantes-beneficios",
+    title: {
+      rendered: "Beneficios de los Paneles Aislantes"
+    },
+    excerpt: {
+      rendered: "Descubre por qué los paneles aislantes son clave en la refrigeración."
+    },
+    content: {
+      rendered: "<p>Contenido sobre los beneficios de los paneles aislantes...</p>"
+    },
+    _embedded: {
+      "wp:featuredmedia": [
+        {
+          source_url: "https://via.placeholder.com/800x400?text=Paneles"
+        }
+      ]
+    }
+  },
+  {
+    id: 3,
+    date: "2026-04-05T09:00:00",
+    slug: "mantenimiento-cuartos-frios",
+    title: {
+      rendered: "Mantenimiento de Cuartos Fríos"
+    },
+    excerpt: {
+      rendered: "Consejos prácticos para alargar la vida útil de tu cuarto frío."
+    },
+    content: {
+      rendered: "<p>Guía de mantenimiento preventivo y correctivo...</p>"
+    },
+    _embedded: {
+      "wp:featuredmedia": [
+        {
+          source_url: "https://via.placeholder.com/800x400?text=Mantenimiento"
+        }
+      ]
+    }
+  }
+];
+
+//const response = await fetch(`${import.meta.env.WORDPRESS_API_URL}/posts?_embed&per_page=100`);
+//const posts = await response.json();
 
 const base = import.meta.env.BASE_URL;
 ---
