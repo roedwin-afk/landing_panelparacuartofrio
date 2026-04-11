@@ -4,21 +4,8 @@ export const prerender = true;
 import Layout from "../../layouts/Layout.astro";
 import Header from "../../components/Header.astro";
 import Footer from "../../components/Footer.astro";
+import { MOCK_POSTS } from "../../data/posts";
 
-const MOCK_POSTS = [
-  {
-    id: 1,
-    slug: "instalacion-cuartos-frios",
-    title: { rendered: "Instalación de Cuartos Fríos: Guía Completa" },
-    content: { rendered: "<p>Contenido...</p>" },
-  },
-  {
-    id: 2,
-    slug: "paneles-aislantes-beneficios",
-    title: { rendered: "Beneficios de los Paneles Aislantes" },
-    content: { rendered: "<p>Contenido...</p>" },
-  },
-];
 
 export async function getStaticPaths() {
   return MOCK_POSTS.map((post) => ({
