@@ -1,27 +1,111 @@
-<section class="contact">
+---
+import { Mail, Phone, MapPin } from "@lucide/astro";
+---
+
+<section class="contact fade-in">
   <div class="contact__container">
-    <!-- Texto -->
-    <div class="contact__info fade-in">
-      <h1>Solicita tu cotización</h1>
+    <!-- INFO -->
+    <div class="contact__info">
+      <h2>Solicita tu cotización</h2>
+
       <p>
         Contáctanos para asesorarte en la selección de paneles para tu cámara
         fría. Te respondemos lo más rápido posible.
       </p>
 
       <div class="contact__data">
-        <p>📧 info@panelparacuartofrio.com</p>
-        <p>📱 +503 6540-0000</p>
-        <p>📍 El Salvador</p>
+        <p>
+          <Mail size={18} />
+          <a href="mailto:info@panelparacuartofrio.com">
+            info@panelparacuartofrio.com
+          </a>
+        </p>
+
+        <p>
+          <Phone size={18} />
+          <a href="tel:+525599903546"> +52 55 9990 3546</a>
+        </p>
+
+        <p>
+          <MapPin size={18} />
+          Avenida Presidente Masaryk No. 61, Int. 901, Colonia Polanco V Sección,
+          C.P. 11560, Alcaldía Miguel Hidalgo, Ciudad de México, México
+        </p>
+      </div>
+      <div class="contact__social">
+        <a href="#" target="_blank" aria-label="Facebook">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M22 12a10 10 0 1 0-11.5 9.9v-7H8v-3h2.5V9.5c0-2.5 1.5-3.9 3.8-3.9 1.1 0 2.2.2 2.2.2v2.4h-1.2c-1.2 0-1.5.7-1.5 1.5V12H17l-.4 3h-2.7v7A10 10 0 0 0 22 12z"
+            ></path>
+          </svg>
+        </a>
+        <a href="#" target="_blank" aria-label="Instagram">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M7 2C4.8 2 3 3.8 3 6v12c0 2.2 1.8 4 4 4h10c2.2 
+    0 4-1.8 4-4V6c0-2.2-1.8-4-4-4H7zm5 5a5 5 0 1 1 0 
+    10 5 5 0 0 1 0-10zm6.5-1.5a1 1 0 1 1-2 
+    0 1 1 0 0 1 2 0zM12 9a3 3 0 1 0 0 
+    6 3 3 0 0 0 0-6z"
+            ></path>
+          </svg>
+        </a>
+        <a href="#" target="_blank" aria-label="LinkedIn">
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M4.98 3.5C4.98 4.88 3.87 6 2.5 
+    6S0 4.88 0 3.5 1.12 1 2.5 
+    1s2.48 1.12 2.48 2.5zM.5 8h4V24h-4V8zm7.5 
+    0h3.6v2.2h.05c.5-.9 1.7-2.2 
+    3.5-2.2 3.75 0 4.45 2.47 4.45 
+    5.68V24h-4v-7.5c0-1.8-.03-4.1-2.5-4.1-2.5 
+    0-2.9 1.95-2.9 4v7.6h-4V8z"
+            ></path>
+          </svg>
+        </a>
+        <a
+          href="https://wa.me/50365400000"
+          target="_blank"
+          aria-label="WhatsApp"
+        >
+          <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+            <path
+              d="M20 3.5A11.9 11.9 0 0 0 12 .5C5.7.5.6 5.6.6 
+    12c0 2.1.5 4.1 1.6 5.9L.5 23.5l5.7-1.5c1.7.9 3.6 
+    1.4 5.8 1.4 6.3 0 11.4-5.1 
+    11.4-11.4 0-3-1.2-5.8-3.4-8zM12 
+    21c-1.8 0-3.5-.5-5-1.3l-.4-.2-3.4.9.9-3.3-.3-.4A9.5 
+    9.5 0 1 1 12 21zm5.2-7.1c-.3-.2-1.8-.9-2.1-1-.3-.1-.5-.2-.7.2-.2.3-.8 
+    1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.4-2.3-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 
+    0-.5.1-.7.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 
+    0-.4 0-.5 0-.2-.7-1.7-1-2.3-.2-.5-.5-.4-.7-.4h-.6c-.2 
+    0-.5.1-.8.4-.3.3-1.1 1.1-1.1 
+    2.7s1.2 3.2 1.4 3.4c.2.2 2.4 
+    3.7 5.8 5.2.8.3 1.5.5 
+    2 .7.8.3 1.5.3 2.1.2.6-.1 
+    1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.2-.3-.3-.6-.5z"
+            ></path>
+          </svg>
+        </a>
+      </div>
+
+      <!-- MAPA -->
+      <div class="contact__map">
+        <iframe
+          src="https://maps.google.com/maps?q=Avenida%20Presidente%20Masaryk%20No.%2061%2C%20Int.%20901%2C%20Colonia%20Polanco%20V%20Secci%C3%B3n%2C%20C.P.%2011560%2C%20Alcald%C3%ADa%20Miguel%20Hidalgo%2C%20Ciudad%20de%20M%C3%A9xico%2C%20M%C3%A9xico&output=embed"
+          loading="lazy"></iframe>
       </div>
     </div>
 
-    <!-- Formulario -->
+    <!-- FORM -->
     <form
-      class="contact__form fade-in"
+      class="contact__form"
       action="https://formspree.io/f/maqlkvyj"
       method="POST"
     >
-      <input type="hidden" name="_next" value="http://localhost:4321/gracias" />
+      <input type="hidden" name="_next" value="/gracias" />
+
       <input type="text" name="nombre" placeholder="Nombre" required />
       <input
         type="email"
@@ -30,6 +114,7 @@
         required
       />
       <input type="tel" name="telefono" placeholder="Teléfono" />
+
       <textarea
         name="mensaje"
         rows="5"
@@ -40,6 +125,7 @@
     </form>
   </div>
 </section>
+
 <style>
   .contact {
     padding: 4rem 2rem;
@@ -51,11 +137,13 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
+    align-items: start;
   }
 
-  .contact__info h1 {
+  .contact__info h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
+    color: var(--color-primary);
   }
 
   .contact__info p {
@@ -64,7 +152,42 @@
   }
 
   .contact__data p {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
     font-weight: 600;
+  }
+
+  .contact__data a {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .contact__data a:hover {
+    text-decoration: underline;
+  }
+
+  .contact__data svg {
+    color: var(--color-primary);
+    flex-shrink: 0;
+    width: 18px;
+    height: 18px;
+  }
+
+  .contact__social a svg {
+    color: var(--color-primary);
+  }
+
+  .contact__social a:hover svg {
+    color: var(--color-accent);
+  }
+
+  .contact__map iframe {
+    width: 100%;
+    height: 220px;
+    border: none;
+    border-radius: 8px;
+    margin-top: 1rem;
   }
 
   .contact__form {
@@ -79,27 +202,34 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     font-family: inherit;
+    transition:
+      border 0.2s,
+      box-shadow 0.2s;
+  }
+
+  .contact__form input:focus,
+  .contact__form textarea:focus {
+    outline: none;
+    border-color: var(--color-accent);
+    box-shadow: 0 0 0 2px rgba(232, 160, 32, 0.2);
   }
 
   .contact__form button {
     background-color: var(--color-accent);
     color: white;
-    padding: 0.9rem;
+    padding: 1rem;
     border: none;
     font-weight: 700;
     cursor: pointer;
     border-radius: 4px;
+    transition:
+      transform 0.2s,
+      opacity 0.2s;
   }
 
   .contact__form button:hover {
-    opacity: 0.9;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .contact__container {
-      grid-template-columns: 1fr;
-    }
+    transform: translateY(-2px);
+    opacity: 0.95;
   }
 
   @media (max-width: 768px) {
@@ -107,18 +237,12 @@
       padding: 3rem 1.5rem;
     }
 
-    .contact__info h1 {
+    .contact__container {
+      grid-template-columns: 1fr;
+    }
+
+    .contact__info h2 {
       font-size: 1.5rem;
-    }
-
-    .contact__form input,
-    .contact__form textarea {
-      font-size: 1rem;
-    }
-
-    .contact__form button {
-      font-size: 1rem;
-      padding: 1rem;
     }
   }
 </style>
@@ -127,6 +251,7 @@
   window.addEventListener("pageshow", (event) => {
     if (event.persisted) {
       const form = document.querySelector<HTMLFormElement>(".contact__form");
+
       if (form) form.reset();
     }
   });

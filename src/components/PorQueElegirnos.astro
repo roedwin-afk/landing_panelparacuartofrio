@@ -1,24 +1,37 @@
 ---
-const stats = [
+import { Clock, Building2, MessageCircle, Award } from "@lucide/astro";
+
+const icons = {
+  clock: Clock,
+  building: Building2,
+  message: MessageCircle,
+  award: Award,
+};
+type IconName = "clock" | "building" | "message" | "award";
+const stats: {
+  icono: IconName;
+  numero: string;
+  texto: string;
+}[] = [
   {
-    icono: "🕐",
+    icono: "clock",
     numero: "+10",
     texto: "Años de experiencia en soluciones de aislamiento industrial",
   },
   {
-    icono: "🏗️",
+    icono: "building",
     numero: "+350",
     texto: "Proyectos instalados en la región centroamericana",
   },
   {
-    icono: "💬",
+    icono: "message",
     numero: "Asesoría",
     texto: "Te ayudamos a elegir el panel correcto para tu proyecto",
   },
   {
-    icono: "🏅",
+    icono: "award",
     numero: "Certificaciones",
-    texto: "Internacionales en materiales y procesos",
+    texto: "Internacionales en materiales y procesos de fabricación",
   },
 ];
 ---
@@ -30,7 +43,14 @@ const stats = [
       {
         stats.map((s) => (
           <div class="stats__card">
-            <span class="stats__icono">{s.icono}</span>
+            <span class="stats__icono">
+              {(() => {
+                const Icon = icons[s.icono];
+                return Icon ? (
+                  <Icon size={28} color="var(--color-primary)" />
+                ) : null;
+              })()}
+            </span>
             <span class="stats__numero">{s.numero}</span>
             <p class="stats__texto">{s.texto}</p>
           </div>
@@ -61,7 +81,7 @@ const stats = [
 
   .stats__grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 2rem;
   }
 
@@ -71,10 +91,19 @@ const stats = [
     border-top: 3px solid var(--color-accent);
   }
 
+  .stats__card:hover .stats__icono svg {
+    stroke: var(--color-accent);
+  }
+
   .stats__icono {
     font-size: 2rem;
     display: block;
     margin-bottom: 0.75rem;
+  }
+  .stats__icono svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--color-primary);
   }
 
   .stats__numero {
@@ -101,9 +130,16 @@ const stats = [
     transform: translateY(0);
   }
   @media (max-width: 768px) {
-    .stats__grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 1.5rem;
+    .stats {
+      padding: 3rem 1rem;
+    }
+
+    .stats__texto {
+      font-size: 1rem;
+    }
+
+    .stats__card {
+      padding: 1.5rem 1rem;
     }
   }
 </style>

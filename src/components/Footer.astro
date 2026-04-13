@@ -29,12 +29,13 @@ import logo from "../assets/logo.png";
     <div class="footer__contacto">
       <h4>Contacto</h4>
       <p>info@panelparacuartofrio.com</p>
-      <p>+503 6543 2109</p>
-      <p>San Miguel, El Salvador y Centroamérica</p>
+      <p>+525599903546</p>
+      <p>Avenida Presidente Masaryk No. 61, Int. 901  Colonia Polanco V Sección, C.P. 11560
+Alcaldía Miguel Hidalgo, Ciudad de México, México</p>
     </div>
   </div>
   <div class="footer__copy">
-    <p>© 2026 PanelParaCuartoFrío. Todos los derechos reservados.</p>
+    <p>© <span id="year"></span> Panel Para Cuarto Frío</p>
   </div>
 </footer>
 
@@ -107,3 +108,7 @@ import logo from "../assets/logo.png";
     }
   }
 </style>
+<script>
+  const el = document.getElementById("year");
+  if (el) el.textContent = String(new Date().getFullYear());
+</script>

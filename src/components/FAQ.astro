@@ -1,0 +1,136 @@
+---
+const faqs = [
+    {
+        pregunta: "¿Qué es un panel para cuarto frío?",
+        respuesta:
+            "Es un sistema de aislamiento térmico fabricado con poliuretano, utilizado en cámaras frigoríficas para mantener temperaturas controladas.",
+    },
+    {
+        pregunta: "¿Cumplen con normativas internacionales?",
+        respuesta:
+            "Sí, nuestros paneles cumplen con normativas TIF y FDA para garantizar calidad y seguridad en aplicaciones industriales.",
+    },
+    {
+        pregunta: "¿Realizan instalación en todo El Salvador?",
+        respuesta:
+            "Sí, ofrecemos cobertura en todo El Salvador y proyectos en Centroamérica.",
+    },
+    {
+        pregunta: "¿Cómo puedo solicitar una cotización?",
+        respuesta:
+            "Puedes contactarnos desde el formulario o vía WhatsApp para recibir asesoría personalizada.",
+    },
+];
+---
+
+<section class="faq fade-in">
+    <div class="faq__container">
+        <h2 class="faq__title">Preguntas frecuentes</h2>
+
+        <div class="faq__list">
+            {
+                faqs.map((faq, i) => (
+                    <div class="faq__item">
+                        <button class="faq__question" data-index={i}>
+                            <span>{faq.pregunta}</span>
+                            <span class="faq__icon">+</span>
+                        </button>
+
+                        <div class="faq__answer">
+                            <p>{faq.respuesta}</p>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .faq {
+        padding: 5rem 2rem;
+        background-color: #f8f9fb;
+    }
+
+    .faq__container {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .faq__title {
+        text-align: center;
+        font-size: 1.75rem;
+        color: var(--color-primary);
+        margin-bottom: 2rem;
+    }
+
+    .faq__item {
+        border-bottom: 1px solid #ddd;
+    }
+
+    .faq__question {
+        width: 100%;
+        background: none;
+        border: none;
+        padding: 1.2rem 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        text-align: left;
+    }
+
+    .faq__icon {
+        font-size: 1.5rem;
+        color: var(--color-accent);
+        transition: transform 0.3s ease;
+    }
+
+    .faq__answer {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+    }
+
+    .faq__answer p {
+        padding-bottom: 1rem;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    .faq__item.active .faq__answer {
+        max-height: 200px;
+    }
+
+    .faq__item.active .faq__icon {
+        transform: rotate(45deg);
+    }
+
+    @media (max-width: 768px) {
+        .faq {
+            padding: 3rem 1.5rem;
+        }
+    }
+</style>
+
+<script>
+    const items = document.querySelectorAll(".faq__item");
+
+    items.forEach((item) => {
+        const button = item.querySelector(".faq__question");
+
+        if (!button) return;
+
+        button.addEventListener("click", () => {
+            const isActive = item.classList.contains("active");
+
+            items.forEach((i) => i.classList.remove("active"));
+
+            if (!isActive) {
+                item.classList.add("active");
+            }
+        });
+    });
+</script>
