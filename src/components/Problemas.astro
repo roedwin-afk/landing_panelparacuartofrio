@@ -1,19 +1,33 @@
 ---
-const problemas = [
+import { Thermometer, AlertTriangle, Wrench } from "@lucide/astro";
+
+const icons = {
+  temperatura: Thermometer,
+  riesgo: AlertTriangle,
+  instalacion: Wrench,
+};
+
+type IconName = "temperatura" | "riesgo" | "instalacion";
+
+const problemas: {
+  icono: IconName;
+  titulo: string;
+  texto: string;
+}[] = [
   {
-    icono: "🌡️",
+    icono: "temperatura",
     titulo: "Pérdidas de temperatura",
     texto:
       "Una cámara mal aislada puede incrementar hasta un 40% el consumo energético y comprometer la cadena de frío.",
   },
   {
-    icono: "⚠️",
+    icono: "riesgo",
     titulo: "Riesgos de cumplimiento",
     texto:
       "Las normativas sanitarias exigen materiales certificados. Un panel inadecuado puede costar una multa o el cierre del proceso.",
   },
   {
-    icono: "🔧",
+    icono: "instalacion",
     titulo: "Instalaciones lentas y costosas",
     texto:
       "Los sistemas tradicionales requieren más tiempo, más mano de obra y más mantenimiento.",
@@ -23,21 +37,33 @@ const problemas = [
 
 <section class="problemas fade-in">
   <div class="problemas__container">
-    {
-      problemas.map((p) => (
-        <div class="problemas__card">
-          <span class="problemas__icono">{p.icono}</span>
-          <h3 class="problemas__titulo">{p.titulo}</h3>
-          <p class="problemas__texto">{p.texto}</p>
-        </div>
-      ))
-    }
+    <h2 class="problemas__titulo-seccion">
+      Problemas que un mal aislamiento puede causar
+    </h2>
+
+    <div class="problemas__grid">
+      {
+        problemas.map((p) => (
+          <div class="problemas__card">
+            <span class="problemas__icono">
+              {(() => {
+                const Icon = icons[p.icono];
+                return Icon ? <Icon size={28} /> : null;
+              })()}
+            </span>
+
+            <h3 class="problemas__titulo">{p.titulo}</h3>
+            <p class="problemas__texto">{p.texto}</p>
+          </div>
+        ))
+      }
+    </div>
   </div>
 </section>
 
 <style>
   .problemas {
-    padding: 4rem 2rem;
+    padding: 5rem 2rem;
     background-color: #f8f9fa;
   }
 
@@ -45,27 +71,50 @@ const problemas = [
     max-width: 1200px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .problemas__titulo-seccion {
+    text-align: center;
+    color: var(--color-primary);
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+  }
+
+  .problemas__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 2rem;
   }
 
   .problemas__card {
-    background: var(--color-white);
-    border-radius: 8px;
-    padding: 2rem;
     text-align: center;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    padding: 2rem 1rem;
+    border-top: 3px solid var(--color-accent);
+    background-color: var(--color-white);
+  }
+
+  .problemas__card:hover .problemas__icono svg {
+    stroke: var(--color-accent);
   }
 
   .problemas__icono {
-    font-size: 2.5rem;
     display: block;
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .problemas__icono svg {
+    width: 28px;
+    height: 28px;
+    stroke: var(--color-primary);
   }
 
   .problemas__titulo {
     color: var(--color-primary);
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
   }
@@ -88,7 +137,21 @@ const problemas = [
   }
 
   @media (max-width: 768px) {
-    .problemas__container {
+    .problemas {
+      padding: 3rem 1rem;
+    }
+
+    .problemas__texto {
+      font-size: 1rem;
+    }
+
+    .problemas__card {
+      padding: 1.5rem 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .problemas__grid {
       grid-template-columns: 1fr;
     }
   }
