@@ -3,6 +3,21 @@ import { Image } from "astro:assets";
 import proyecto1 from "../assets/proyecto1.jpg";
 import proyecto2 from "../assets/proyecto2.jpg";
 import proyecto3 from "../assets/proyecto3.jpg";
+
+const proyectos = [
+  {
+    desc: "Cámara fría para conservación de productos perecederos.",
+    imagenes: [proyecto1, proyecto1, proyecto1]
+  },
+  {
+    desc: "Instalación de paneles de alta eficiencia térmica.",
+    imagenes: [proyecto2, proyecto2, proyecto2, proyecto2]
+  },
+  {
+    desc: "Solución personalizada para almacenamiento en frío.",
+    imagenes: [proyecto3, proyecto3]
+  }
+];
 ---
 
 <section class="projects">
@@ -13,44 +28,52 @@ import proyecto3 from "../assets/proyecto3.jpg";
     </div>
 
     <div class="projects__grid">
-      <div class="project fade-in">
-        <Image
-          src={proyecto1}
-          alt="Cuarto frío para alimentos"
-          width={400}
-          height={300}
-        />
-        <div class="project__info">
-          <p>Cámara fría para conservación de productos perecederos.</p>
+      {proyectos.map((p, pi) => (
+        <div class="project fade-in">
+          <div class="project__img-wrapper">
+            <Image
+              src={p.imagenes[0]}
+              alt={p.desc}
+              width={400}
+              height={300}
+              class="project__img"
+            />
+            <button
+              class="project__zoom"
+              data-project={pi}
+              aria-label="Ver galería"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            </button>
+            <span class="project__count">{p.imagenes.length} fotos</span>
+          </div>
+          <div class="project__info">
+            <p>{p.desc}</p>
+          </div>
         </div>
-      </div>
-
-      <div class="project fade-in">
-        <Image
-          src={proyecto2}
-          alt="Cuarto frío industrial"
-          width={400}
-          height={300}
-        />
-        <div class="project__info">
-          <p>Instalación de paneles de alta eficiencia térmica.</p>
-        </div>
-      </div>
-
-      <div class="project fade-in">
-        <Image
-          src={proyecto3}
-          alt="Paneles de poliuretano instalados"
-          width={400}
-          height={300}
-        />
-        <div class="project__info">
-          <p>Solución personalizada para almacenamiento en frío.</p>
-        </div>
-      </div>
+      ))}
     </div>
   </div>
 </section>
+
+<!-- Modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true">
+  <div class="modal__overlay" id="modal-overlay"></div>
+  <div class="modal__box">
+    <button class="modal__close" id="modal-close" aria-label="Cerrar">✕</button>
+    <div class="modal__img-wrap">
+      <img src="" alt="" id="modal-img" class="modal__img" />
+    </div>
+    <div class="modal__footer">
+      <p id="modal-desc" class="modal__desc"></p>
+      <div class="modal__nav">
+        <button class="modal__btn" id="modal-prev">←</button>
+        <span id="modal-counter" class="modal__counter">1 / 3</span>
+        <button class="modal__btn" id="modal-next">→</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <style>
   .projects {
@@ -73,6 +96,7 @@ import proyecto3 from "../assets/proyecto3.jpg";
     margin-bottom: 0.5rem;
     color: var(--color-primary);
   }
+
   .projects__header p {
     color: #555;
     font-size: 1rem;
@@ -89,19 +113,66 @@ import proyecto3 from "../assets/proyecto3.jpg";
     border-radius: 8px;
     overflow: hidden;
     transition: transform 0.3s ease;
+    cursor: pointer;
   }
 
   .project:hover {
     transform: translateY(-5px);
   }
 
-  .project__info {
-    padding: 1rem;
+  .project__img-wrapper {
+    position: relative;
+    overflow: hidden;
   }
 
-  .project__info h3 {
-    font-size: 1rem;
-    margin-bottom: 0.3rem;
+  .project__img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.3s ease;
+  }
+
+  .project:hover .project__img {
+    transform: scale(1.05);
+  }
+
+  .project__zoom {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .project:hover .project__zoom {
+    opacity: 1;
+  }
+
+  .project__count {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 12px;
+  }
+
+  .project__info {
+    padding: 1rem;
   }
 
   .project__info p {
@@ -109,9 +180,124 @@ import proyecto3 from "../assets/proyecto3.jpg";
     opacity: 0.7;
   }
 
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal.active {
+    display: flex;
+  }
+
+  .modal__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0,0,0,0.9);
+  }
+
+  .modal__box {
+    position: relative;
+    z-index: 1001;
+    width: 90%;
+    max-width: 900px;
+    background: #1a1a1a;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .modal__close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: rgba(255,255,255,0.15);
+    border: none;
+    color: white;
+    font-size: 1rem;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 1002;
+    transition: background 0.2s;
+  }
+
+  .modal__close:hover {
+    background: rgba(255,255,255,0.3);
+  }
+
+  .modal__img-wrap {
+    width: 100%;
+    background: #000;
+  }
+
+  .modal__img {
+    width: 100%;
+    max-height: 65vh;
+    object-fit: contain;
+    display: block;
+  }
+
+  .modal__footer {
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .modal__desc {
+    color: rgba(255,255,255,0.7);
+    font-size: 0.9rem;
+    flex: 1;
+  }
+
+  .modal__nav {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+  }
+
+  .modal__btn {
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    color: white;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .modal__btn:hover {
+    background: rgba(255,255,255,0.2);
+  }
+
+  .modal__counter {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.85rem;
+    min-width: 40px;
+    text-align: center;
+  }
+
   @media (max-width: 768px) {
     .projects__grid {
       grid-template-columns: 1fr 1fr;
+    }
+
+    .modal__footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.75rem;
     }
   }
 
@@ -120,10 +306,108 @@ import proyecto3 from "../assets/proyecto3.jpg";
       grid-template-columns: 1fr;
     }
 
-    .project img {
+    .project__img {
       height: 200px;
-      object-fit: cover;
-      width: 100%;
     }
   }
 </style>
+
+<script>
+  const proyectosData: { desc: string; imagenes: string[] }[] = [];
+
+  document.querySelectorAll(".project").forEach((card, pi) => {
+    const imgs = card.querySelectorAll(".project__img");
+    const desc = card.querySelector(".project__info p")?.textContent || "";
+    const imagenes: string[] = [];
+    imgs.forEach((img) => {
+      const src = (img as HTMLImageElement).src;
+      if (src) imagenes.push(src);
+    });
+    proyectosData.push({ desc, imagenes });
+  });
+
+  // Cargar todas las imágenes de cada proyecto desde data attributes
+  const allImages: string[][] = [];
+  document.querySelectorAll("[data-project]").forEach((btn) => {
+    const pi = parseInt((btn as HTMLElement).dataset.project || "0");
+    if (!allImages[pi]) allImages[pi] = [];
+  });
+
+  // Obtener imágenes reales del DOM
+  const projectCards = document.querySelectorAll(".project");
+  projectCards.forEach((card, pi) => {
+    const mainImg = card.querySelector(".project__img") as HTMLImageElement;
+    if (mainImg) {
+      // Repetir imagen según data del componente
+      const count = parseInt(card.querySelector(".project__count")?.textContent?.split(" ")[0] || "1");
+      allImages[pi] = Array(count).fill(mainImg.src);
+    }
+  });
+
+  let currentProject = 0;
+  let currentImg = 0;
+
+  const modal = document.getElementById("modal");
+  const modalImg = document.getElementById("modal-img") as HTMLImageElement;
+  const modalDesc = document.getElementById("modal-desc");
+  const modalCounter = document.getElementById("modal-counter");
+  const modalClose = document.getElementById("modal-close");
+  const modalOverlay = document.getElementById("modal-overlay");
+  const modalPrev = document.getElementById("modal-prev");
+  const modalNext = document.getElementById("modal-next");
+
+  function updateModal() {
+    const imgs = allImages[currentProject];
+    if (modalImg) {
+      modalImg.src = imgs[currentImg];
+      modalImg.alt = proyectosData[currentProject]?.desc || "";
+    }
+    if (modalDesc) modalDesc.textContent = proyectosData[currentProject]?.desc || "";
+    if (modalCounter) modalCounter.textContent = (currentImg + 1) + " / " + imgs.length;
+    if (modalPrev) (modalPrev as HTMLButtonElement).disabled = currentImg === 0;
+    if (modalNext) (modalNext as HTMLButtonElement).disabled = currentImg === imgs.length - 1;
+  }
+
+  function openModal(pi: number) {
+    currentProject = pi;
+    currentImg = 0;
+    modal?.classList.add("active");
+    document.body.style.overflow = "hidden";
+    updateModal();
+  }
+
+  function closeModal() {
+    modal?.classList.remove("active");
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".project__zoom").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const pi = parseInt((btn as HTMLElement).dataset.project || "0");
+      openModal(pi);
+    });
+  });
+
+  document.querySelectorAll(".project").forEach((card, pi) => {
+    card.addEventListener("click", () => openModal(pi));
+  });
+
+  modalClose?.addEventListener("click", closeModal);
+  modalOverlay?.addEventListener("click", closeModal);
+
+  modalPrev?.addEventListener("click", () => {
+    if (currentImg > 0) { currentImg--; updateModal(); }
+  });
+
+  modalNext?.addEventListener("click", () => {
+    if (currentImg < allImages[currentProject].length - 1) { currentImg++; updateModal(); }
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (!modal?.classList.contains("active")) return;
+    if (e.key === "Escape") closeModal();
+    if (e.key === "ArrowLeft" && currentImg > 0) { currentImg--; updateModal(); }
+    if (e.key === "ArrowRight" && currentImg < allImages[currentProject].length - 1) { currentImg++; updateModal(); }
+  });
+</script>

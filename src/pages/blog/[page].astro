@@ -1,0 +1,320 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Header from "../../components/Header.astro";
+import Footer from "../../components/Footer.astro";
+
+
+export async function getStaticPaths() {
+  const POSTS_PER_PAGE = 6;
+  const allPosts = [
+    {
+      id: 1,
+      date: "2026-04-10T12:00:00",
+      slug: "instalacion-cuartos-frios",
+      title: { rendered: "Instalación de Cuartos Fríos: Guía Completa" },
+      excerpt: {
+        rendered:
+          "Aprende los aspectos clave para instalar un cuarto frío eficiente y duradero.",
+      },
+      _embedded: {
+        "wp:featuredmedia": [
+          {
+            source_url: "https://via.placeholder.com/800x400?text=Cuarto+Frio",
+          },
+        ],
+      },
+    },
+    {
+      id: 2,
+      date: "2026-04-08T10:30:00",
+      slug: "paneles-aislantes-beneficios",
+      title: { rendered: "Beneficios de los Paneles Aislantes" },
+      excerpt: {
+        rendered:
+          "Descubre por qué los paneles aislantes son clave en la refrigeración.",
+      },
+      _embedded: {
+        "wp:featuredmedia": [
+          { source_url: "https://via.placeholder.com/800x400?text=Paneles" },
+        ],
+      },
+    },
+    {
+      id: 3,
+      date: "2026-04-05T09:00:00",
+      slug: "mantenimiento-cuartos-frios",
+      title: { rendered: "Mantenimiento de Cuartos Fríos" },
+      excerpt: {
+        rendered:
+          "Consejos prácticos para alargar la vida útil de tu cuarto frío.",
+      },
+      _embedded: {
+        "wp:featuredmedia": [
+          {
+            source_url:
+              "https://via.placeholder.com/800x400?text=Mantenimiento",
+          },
+        ],
+      },
+    },
+  ];
+
+  const totalPages = Math.ceil(allPosts.length / POSTS_PER_PAGE);
+
+  return Array.from({ length: totalPages }, (_, i) => ({
+    params: { page: String(i + 1) },
+    props: {
+      posts: allPosts.slice(i * POSTS_PER_PAGE, (i + 1) * POSTS_PER_PAGE),
+      currentPage: i + 1,
+      totalPages,
+    },
+  }));
+}
+
+const { posts, currentPage, totalPages } = Astro.props;
+const base = import.meta.env.BASE_URL;
+
+const paginationLinks = Array.from({ length: totalPages }, (_, i) => i + 1);
+---
+
+<Layout
+  title={"Blog" +
+    (currentPage > 1 ? " — Página " + currentPage : "") +
+    " | Panel Para Cuarto Frío"}
+  description="Información sobre paneles de poliuretano, aislamiento industrial y proyectos de refrigeración."
+>
+  <Header />
+
+  <main class="blog">
+    <div class="blog__container">
+      <div class="blog__header">
+        <h1 class="blog__title">Blog</h1>
+        <p class="blog__description">
+          Información sobre paneles de poliuretano, aislamiento industrial y
+          proyectos de refrigeración en El Salvador y Centroamérica.
+        </p>
+      </div>
+
+      <div class="blog__grid">
+        {
+          posts.map((post: any) => (
+            <article class="blog-card">
+              {post._embedded?.["wp:featuredmedia"]?.[0]?.source_url && (
+                <img
+                  src={post._embedded["wp:featuredmedia"][0].source_url}
+                  alt={post.title.rendered}
+                  class="blog-card__image"
+                />
+              )}
+              <div class="blog-card__content">
+                <p class="blog-card__date">
+                  {new Date(post.date).toLocaleDateString("es-SV", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+                <h2 class="blog-card__title">
+                  <a
+                    href={base + "blog/" + post.slug + "/"}
+                    set:html={post.title.rendered}
+                  />
+                </h2>
+                <p
+                  class="blog-card__description"
+                  set:html={post.excerpt.rendered}
+                />
+                <a
+                  href={base + "blog/" + post.slug + "/"}
+                  class="blog-card__link"
+                >
+                  Leer más →
+                </a>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+
+      {
+        totalPages > 1 && (
+          <nav class="pagination">
+            {currentPage > 1 && (
+              <a
+                href={base + "blog/" + (currentPage - 1) + "/"}
+                class="pagination__btn"
+              >
+                ← Anterior
+              </a>
+            )}
+            <div class="pagination__pages">
+              {paginationLinks.map((pageNum) => {
+                const isActive = pageNum === currentPage;
+                const href = base + "blog/" + pageNum + "/";
+                return (
+                  <a
+                    href={href}
+                    class={"pagination__page" + (isActive ? " active" : "")}
+                  >
+                    {pageNum}
+                  </a>
+                );
+              })}
+            </div>
+            {currentPage < totalPages && (
+              <a
+                href={base + "blog/" + (currentPage + 1) + "/"}
+                class="pagination__btn"
+              >
+                Siguiente →
+              </a>
+            )}
+          </nav>
+        )
+      }
+    </div>
+  </main>
+
+  <Footer />
+</Layout>
+
+<style>
+  .blog {
+    padding: 4rem 2rem;
+    background-color: #f8f9fa;
+  }
+
+  .blog__container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .blog__header {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .blog__title {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  .blog__description {
+    max-width: 700px;
+    margin: 0 auto;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .blog__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .blog-card {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .blog-card__image {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .blog-card__content {
+    padding: 1.5rem;
+  }
+
+  .blog-card__date {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-card__title {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .blog-card__title a {
+    color: var(--color-primary);
+  }
+
+  .blog-card__description {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .blog-card__link {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .pagination {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+
+  .pagination__btn {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid var(--color-primary);
+    border-radius: 6px;
+    color: var(--color-primary);
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .pagination__btn:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  .pagination__pages {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .pagination__page {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    color: var(--color-primary);
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .pagination__page:hover {
+    border-color: var(--color-primary);
+  }
+
+  .pagination__page.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+  }
+
+  @media (max-width: 900px) {
+    .blog__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .blog__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

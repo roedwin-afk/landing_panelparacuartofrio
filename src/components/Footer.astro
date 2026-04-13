@@ -28,10 +28,16 @@ import logo from "../assets/logo.png";
     </div>
     <div class="footer__contacto">
       <h4>Contacto</h4>
-      <p>info@panelparacuartofrio.com</p>
-      <p>+525599903546</p>
-      <p>Avenida Presidente Masaryk No. 61, Int. 901  Colonia Polanco V Sección, C.P. 11560
-Alcaldía Miguel Hidalgo, Ciudad de México, México</p>
+      <p>
+        <a href="mailto:info@panelparacuartofrio.com"
+          >info@panelparacuartofrio.com</a
+        >
+      </p>
+      <p><a href="tel:+525599903546">+52 55 9990 3546</a></p>
+      <p>
+        Avenida Presidente Masaryk No. 61, Int. 901 Colonia Polanco V Sección,
+        C.P. 11560 Alcaldía Miguel Hidalgo, Ciudad de México, México
+      </p>
     </div>
   </div>
   <div class="footer__copy">
@@ -74,6 +80,15 @@ Alcaldía Miguel Hidalgo, Ciudad de México, México</p>
     font-size: 0.95rem;
     font-weight: 700;
     margin-bottom: 1rem;
+  }
+
+  .footer__contacto a {
+    color: rgba(255, 255, 255, 0.75);
+    text-decoration: none;
+  }
+
+  .footer__contacto a:hover {
+    color: var(--color-accent);
   }
 
   .footer__links a {

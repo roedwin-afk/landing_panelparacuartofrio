@@ -107,6 +107,12 @@ import Menu from "./Menu.astro";
             toggle.addEventListener("click", () => {
                 menu.classList.toggle("active");
             });
+            // Cerrar menú al hacer clic en un link
+            menu.querySelectorAll("a").forEach((link) => {
+                link.addEventListener("click", () => {
+                    menu.classList.remove("active");
+                });
+            });
         }
     });
 </script>
