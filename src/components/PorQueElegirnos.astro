@@ -16,29 +16,29 @@ const stats: {
   {
     icono: "clock",
     numero: "+10",
-    texto: "Años de experiencia en soluciones de aislamiento industrial",
+    texto: "Años de experiencia en soluciones de aislamiento para proyectos industriales",
   },
   {
     icono: "building",
     numero: "+350",
-    texto: "Proyectos instalados en la región centroamericana",
+    texto: "Proyectos ejecutados en la región centroamericana",
   },
   {
     icono: "message",
-    numero: "Asesoría",
-    texto: "Te ayudamos a elegir el panel correcto para tu proyecto",
+    numero: "Asesoría técnica",
+    texto: "Te acompañamos en la selección del panel ideal según tu aplicación y temperatura",
   },
   {
     icono: "award",
     numero: "Certificaciones",
-    texto: "Internacionales en materiales y procesos de fabricación",
+    texto: "Materiales que cumplen normativas internacionales para uso industrial y sanitario",
   },
 ];
 ---
 
 <section class="stats fade-in">
   <div class="stats__container">
-    <h2 class="stats__titulo">¿Por qué elegirnos?</h2>
+    <h2 class="stats__titulo">¿Por qué elegir nuestros paneles para cuarto frío?</h2>
     <div class="stats__grid">
       {
         stats.map((s) => (
@@ -47,7 +47,7 @@ const stats: {
               {(() => {
                 const Icon = icons[s.icono];
                 return Icon ? (
-                  <Icon size={28} color="var(--color-primary)" />
+                  <Icon size={28} />
                 ) : null;
               })()}
             </span>

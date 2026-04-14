@@ -3,11 +3,11 @@ import { Image } from "astro:assets";
 import poliuretano from "../assets/poliuretano.webp";
 
 const atributos = [
-  "Conductividad térmica desde 0.022 W/mK",
-  "Disponible en espesores de 60mm a 200mm",
-  "Revestimiento apto para ambientes húmedos y lavado industrial",
-  "Cumple normativas TIF, FDA y HACCP",
-  "Instalación rápida con sistema machihembrado",
+  "Alta eficiencia térmica con conductividad desde 0.022 W/mK",
+  "Disponible en espesores de 60 mm a 200 mm según requerimiento",
+  "Revestimiento metálico apto para ambientes húmedos y lavado industrial",
+  "Cumplimiento de normativas sanitarias (TIF, FDA y HACCP)",
+  "Instalación rápida con sistema machihembrado de alta precisión",
 ];
 ---
 
@@ -23,16 +23,19 @@ const atributos = [
         quality={80}
       />
     </div>
+
     <div class="solucion__contenido">
       <h2 class="solucion__titulo">
-        Panel de Poliuretano para Cuarto Frío — Diseñado para la Industria
+        Panel de Poliuretano para Cuarto Frío — Máximo aislamiento y eficiencia
       </h2>
+
       <p class="solucion__texto">
-        Nuestros paneles están fabricados con núcleo de poliuretano de alta
-        densidad (PUR/PIR), revestimiento metálico y juntas herméticas,
-        garantizando el sellado perfecto que exige la industria alimentaria,
-        farmacéutica y logística.
+        Nuestros paneles con núcleo de poliuretano de alta densidad (PUR/PIR)
+        están diseñados para eliminar pérdidas térmicas, optimizar el consumo
+        energético y garantizar el cumplimiento de normativas sanitarias en
+        proyectos industriales.
       </p>
+
       <ul class="solucion__lista">
         {
           atributos.map((a) => (

@@ -18,19 +18,19 @@ const problemas: {
     icono: "temperatura",
     titulo: "Pérdidas de temperatura",
     texto:
-      "Una cámara mal aislada puede incrementar hasta un 40% el consumo energético y comprometer la cadena de frío.",
+      "Un aislamiento deficiente aumenta la conductividad térmica, elevando hasta un 40% el consumo energético y comprometiendo la cadena de frío.",
   },
   {
     icono: "riesgo",
     titulo: "Riesgos de cumplimiento",
     texto:
-      "Las normativas sanitarias exigen materiales certificados. Un panel inadecuado puede costar una multa o el cierre del proceso.",
+      "El uso de materiales no certificados puede impedir cumplir normativas sanitarias como TIF o FDA, generando sanciones o cierre de operaciones.",
   },
   {
     icono: "instalacion",
-    titulo: "Instalaciones lentas y costosas",
+    titulo: "Instalaciones ineficientes",
     texto:
-      "Los sistemas tradicionales requieren más tiempo, más mano de obra y más mantenimiento.",
+      "Los sistemas tradicionales son más lentos de instalar, menos resistentes a humedad y desgaste, y generan mayores costos a largo plazo.",
   },
 ];
 ---
@@ -70,10 +70,6 @@ const problemas: {
   .problemas__container {
     max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 3rem;
-    align-items: center;
   }
 
   .problemas__titulo-seccion {
@@ -82,6 +78,9 @@ const problemas: {
     font-size: 1.75rem;
     font-weight: 700;
     margin-bottom: 3rem;
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .problemas__grid {
