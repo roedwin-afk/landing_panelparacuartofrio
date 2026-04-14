@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import logo from "../assets/logo.png";
+import logo from "../assets/logo.svg";
 import Menu from "./Menu.astro";
 ---
 
@@ -53,6 +53,22 @@ import Menu from "./Menu.astro";
     .header__nav {
         display: flex;
         gap: 2rem;
+    }
+
+    .header__logo {
+        /* Quitamos el width fijo de 600px para que no empuje otros elementos */
+        height: 3.5rem;
+        display: flex;
+        align-items: center;
+    }
+
+    .header__logo-img {
+        /* Forzamos a que el logo crezca ignorando el espacio en blanco interno */
+        height: 50px;
+        width: 3rem;
+        /* Un pequeño truco de escala si sigue viéndose pequeño */
+        transform: scale(4.5);
+        transform-origin: center;
     }
 
     .header__logo a {
