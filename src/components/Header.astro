@@ -87,23 +87,31 @@ import Menu from "./Menu.astro";
 
     @media (max-width: 768px) {
         .header__container {
-            flex-direction: row;
+            position: relative;
+        }
+
+        .header__logo {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
         .header__toggle {
             display: block;
+            margin-left: auto;
         }
 
         .header__nav {
             position: absolute;
             top: 100%;
-            left: 0;
-            width: 100%;
+            left: -2rem;
+            width: calc(100% + 4rem);
             background-color: var(--color-primary);
             flex-direction: column;
-            align-items: center;
+            align-items: flex-end;
             gap: 1rem;
-            padding: 1rem 0;
+            padding: 1rem 2rem;
+            box-sizing: border-box;
 
             display: none;
         }

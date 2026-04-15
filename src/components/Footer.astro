@@ -35,8 +35,14 @@ import logo from "../assets/logo.svg";
       </p>
       <p><a href="tel:+525599903546">+52 55 9990 3546</a></p>
       <p>
-        Avenida Presidente Masaryk No. 61, Int. 901 Colonia Polanco V Sección,
-        C.P. 11560 Alcaldía Miguel Hidalgo, Ciudad de México, México
+        <a
+          href="https://maps.google.com/?cid=15759084979067732314&g_mp=Cidnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLlNlYXJjaFRleHQ"
+          aria-label="Google Maps"
+          target="_blank"
+        >
+          Avenida Presidente Masaryk No. 61, Int. 901 Colonia Polanco V Sección,
+          C.P. 11560 Alcaldía Miguel Hidalgo, Ciudad de México, México
+        </a>
       </p>
       <div class="footer__social">
         <a
@@ -151,7 +157,7 @@ import logo from "../assets/logo.svg";
     width: 3rem;
     /* Un pequeño truco de escala si sigue viéndose pequeño */
     transform: scale(5.5);
-    transform-origin: center;
+    transform-origin: left center;
   }
 
   .footer__desc {
@@ -222,6 +228,15 @@ import logo from "../assets/logo.svg";
     .footer__container {
       grid-template-columns: 1fr;
       gap: 2rem;
+    }
+
+    .footer__marca {
+      text-align: center;
+    }
+
+    .footer__logo-img {
+      display: block;
+      margin: 0 auto;
     }
   }
 </style>
