@@ -40,8 +40,7 @@ import logo from "../assets/logo.svg";
           aria-label="Google Maps"
           target="_blank"
         >
-          Avenida Presidente Masaryk No. 61, Int. 901 Colonia Polanco V Sección,
-          C.P. 11560 Alcaldía Miguel Hidalgo, Ciudad de México, México
+          Masaryk 61, Int. 901, Polanco V, 11560, CDMX
         </a>
       </p>
       <div class="footer__social">
@@ -144,20 +143,12 @@ import logo from "../assets/logo.svg";
     margin-bottom: 3rem;
   }
 
-  .footer__logo {
-    display: block;
-    color: var(--color-white);
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 1rem;
-  }
+  
   .footer__logo-img {
-    /* Forzamos a que el logo crezca ignorando el espacio en blanco interno */
-    height: 50px;
-    width: 3rem;
-    /* Un pequeño truco de escala si sigue viéndose pequeño */
-    transform: scale(5.5);
-    transform-origin: left center;
+    height: 5rem;
+    width: auto;
+    display: block;
+    filter: brightness(0) invert(1);
   }
 
   .footer__desc {
