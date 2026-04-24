@@ -1,0 +1,48 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import Header from "../../../components/Header.astro";
+import Footer from "../../../components/Footer.astro";
+import ListadoBlogs from "../../../components/ListadoBlogs.astro";
+import { MOCK_POSTS } from "../../../data/posts";
+
+export async function getStaticPaths() {
+  const POSTS_POR_PAGINA = 6;
+  const todosLosPosts = MOCK_POSTS;
+  const totalPaginas = Math.ceil(todosLosPosts.length / POSTS_POR_PAGINA);
+
+  return Array.from({ length: totalPaginas }, (_, i) => ({
+    params: { page: String(i + 1) },
+    props: {
+      posts: todosLosPosts.slice(i * POSTS_POR_PAGINA, (i + 1) * POSTS_POR_PAGINA),
+      paginaActual: i + 1,
+      totalPaginas,
+    },
+  }));
+}
+
+
+const { posts, paginaActual, totalPaginas } = Astro.props;
+
+const blogTexto = {
+  titulo: "Panel para Techo",
+  descripcion:
+    "Soluciones de panel de techo con aislamiento térmico, resistencia estructural e instalación rápida para proyectos industriales y comerciales en México.",
+};
+const basePath = '/blog/page/';
+---
+
+<Layout
+  title={`Blog${paginaActual > 1 ? ` — Página ${paginaActual}` : ""} | ${blogTexto.titulo}`}
+  description={blogTexto.descripcion}
+>
+  <Header />
+
+  <ListadoBlogs
+    posts={posts}
+    paginaActual={paginaActual}
+    totalPaginas={totalPaginas}
+    rutaBase={basePath}
+  />
+
+  <Footer />
+</Layout>

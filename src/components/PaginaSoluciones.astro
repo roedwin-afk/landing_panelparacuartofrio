@@ -1,0 +1,894 @@
+---
+import { Image } from "astro:assets";
+import panelesPoliuretano from "../assets/poliuretano.webp";
+
+import {
+  Snowflake,
+  Thermometer,
+  Beef,
+  Milk,
+  Package,
+  ChefHat,
+  Pill,
+} from "@lucide/astro";
+
+const iconos = {
+  cold: Snowflake,
+  temp: Thermometer,
+  freeze: Snowflake,
+  meat: Beef,
+  dairy: Milk,
+  distribution: Package,
+  kitchen: ChefHat,
+  pharma: Pill,
+} as const;
+
+// Todo el contenido en español directamente
+const data = {
+  hero: {
+    eyebrow: "Solución especializada",
+    title: "Paneles de poliuretano para cuartos fríos de alto rendimiento",
+    text: "Una solución diseñada para optimizar el aislamiento térmico, mejorar la eficiencia operativa y ofrecer un sistema confiable para proyectos de refrigeración industrial.",
+    primaryCta: "Solicitar cotización",
+    secondaryCta: "Ver aplicaciones",
+    imageAlt: "Paneles de poliuretano para proyectos de cuartos fríos",
+  },
+  problems: {
+    kicker: "Desafíos frecuentes",
+    title: "Problemas que esta solución ayuda a resolver",
+    items: [
+      "Pérdida de temperatura y variaciones térmicas dentro del cuarto frío.",
+      "Consumo energético elevado por un aislamiento deficiente.",
+      "Condensación y humedad en superficies críticas.",
+      "Dificultad para mantener espacios higiénicos y fáciles de limpiar.",
+      "Instalaciones poco duraderas o con bajo desempeño estructural.",
+      "Proyectos que necesitan una solución modular, rápida y eficiente.",
+    ],
+  },
+  overview: {
+    kicker: "Visión general",
+    title: "Una solución térmica pensada para exigencias reales",
+    text1: "Los paneles de poliuretano son una de las opciones más eficientes para construir cuartos fríos, cámaras de refrigeración y espacios con control térmico. Su estructura combina aislamiento, resistencia y una instalación práctica en un mismo sistema.",
+    text2: "Esta solución permite conservar mejor la temperatura interna, reducir pérdidas energéticas y lograr instalaciones más limpias, duraderas y profesionales.",
+    stats: [
+      { label: "Aislamiento", value: "alto desempeño" },
+      { label: "Sistema", value: "modular y eficiente" },
+      { label: "Espacios", value: "más higiénicos" },
+    ],
+  },
+  benefits: {
+    kicker: "Ventajas",
+    title: "Beneficios clave de la solución",
+    items: [
+      { title: "Excelente aislamiento térmico", text: "Ayuda a conservar la temperatura interna y mejora la eficiencia del sistema de refrigeración." },
+      { title: "Mayor eficiencia energética", text: "Reduce la fuga térmica y contribuye a disminuir el consumo energético de la operación." },
+      { title: "Superficies higiénicas", text: "Favorece la limpieza y el mantenimiento en ambientes que requieren altos estándares sanitarios." },
+      { title: "Instalación modular", text: "Permite desarrollar proyectos más ordenados, escalables y con mejor aprovechamiento del tiempo." },
+      { title: "Durabilidad y resistencia", text: "Aporta una solución sólida para ambientes industriales y comerciales exigentes." },
+      { title: "Mejor presentación del proyecto", text: "Genera espacios más profesionales, uniformes y funcionales para el negocio." },
+    ],
+  },
+  applications: {
+    kicker: "Aplicaciones",
+    title: "Aplicaciones comunes",
+    items: [
+      { icon: "cold", text: "Cuartos fríos para alimentos" },
+      { icon: "temp", text: "Cámaras de refrigeración" },
+      { icon: "freeze", text: "Cámaras de congelación" },
+      { icon: "meat", text: "Procesamiento de carne" },
+      { icon: "dairy", text: "Industria láctea" },
+      { icon: "distribution", text: "Centros de distribución" },
+      { icon: "kitchen", text: "Cocinas industriales" },
+      { icon: "pharma", text: "Proyectos farmacéuticos" },
+    ],
+  },
+  process: {
+    kicker: "Proceso",
+    title: "Cómo desarrollamos un proyecto",
+    items: [
+      { step: "01", title: "Evaluamos la necesidad", text: "Analizamos el tipo de proyecto, uso del espacio y requerimientos generales." },
+      { step: "02", title: "Definimos la solución", text: "Recomendamos una configuración adecuada según el nivel de exigencia térmica y operativa." },
+      { step: "03", title: "Suministro del sistema", text: "Se prepara la solución con paneles y componentes pensados para el proyecto." },
+      { step: "04", title: "Puesta en marcha del espacio", text: "El resultado es una instalación más eficiente, ordenada y lista para operar." },
+    ],
+  },
+  comparison: {
+    kicker: "Comparativa",
+    title: "¿Por qué elegir paneles de poliuretano?",
+    headers: { aspect: "Aspecto", solution: "Panel de poliuretano", other: "Otras soluciones" },
+    rows: [
+      { aspect: "Aislamiento térmico", solution: "Alto desempeño", other: "Desempeño variable" },
+      { aspect: "Eficiencia energética", solution: "Mayor eficiencia", other: "Menor control térmico" },
+      { aspect: "Limpieza e higiene", solution: "Superficies más prácticas", other: "Mayor complejidad de mantenimiento" },
+      { aspect: "Instalación", solution: "Sistema modular", other: "Procesos más lentos" },
+      { aspect: "Durabilidad", solution: "Alta resistencia", other: "Depende del sistema utilizado" },
+      { aspect: "Presentación final", solution: "Acabado profesional", other: "Resultado menos uniforme" },
+    ],
+  },
+  faq: {
+    kicker: "FAQ",
+    title: "Preguntas frecuentes",
+    items: [
+      { q: "¿Para qué tipo de proyectos se recomienda esta solución?", a: "Es ideal para cuartos fríos, cámaras de refrigeración, congelación y espacios con control térmico en sectores comerciales e industriales." },
+      { q: "¿Ayuda a reducir el consumo energético?", a: "Sí. Un buen aislamiento contribuye a disminuir pérdidas térmicas y mejorar la eficiencia del sistema de refrigeración." },
+      { q: "¿Es una opción adecuada para la industria alimentaria?", a: "Sí. Es una solución muy utilizada en proyectos donde la higiene, la limpieza y el control térmico son prioritarios." },
+      { q: "¿Se puede adaptar a diferentes tamaños de proyecto?", a: "Sí. Al tratarse de un sistema modular, puede ajustarse a distintos requerimientos y escalas de instalación." },
+    ],
+  },
+  cta: {
+    kicker: "Siguiente paso",
+    title: "Hablemos de tu proyecto",
+    text: "Si necesitas una solución confiable para aislamiento térmico en cuartos fríos, podemos ayudarte a evaluar la opción adecuada para tu operación.",
+    button: "Contactar ahora",
+  },
+};
+---
+
+<main class="pagina-solucion">
+  <section class="hero-solucion">
+    <div class="hero-solucion__contenedor">
+      <div class="hero-solucion__contenido">
+        <span class="hero-solucion__ceja">{data.hero.eyebrow}</span>
+
+        <h1 class="hero-solucion__titulo">{data.hero.title}</h1>
+        <p class="hero-solucion__texto">{data.hero.text}</p>
+
+        <div class="hero-solucion__acciones">
+          <a href="/contacto/" class="boton boton--primario">
+            {data.hero.primaryCta}
+          </a>
+
+          <a href="#aplicaciones" class="boton boton--secundario">
+            {data.hero.secondaryCta}
+          </a>
+        </div>
+      </div>
+
+      <div class="hero-solucion__multimedia">
+        <div class="hero-solucion__envoltura-imagen">
+          <Image
+            src={panelesPoliuretano}
+            alt={data.hero.imageAlt}
+            width={700}
+            height={560}
+            format="webp"
+            quality={85}
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="problemas">
+    <div class="cabecera-seccion">
+      <span class="cabecera-seccion__kicker">{data.problems.kicker}</span>
+      <h2>{data.problems.title}</h2>
+    </div>
+
+    <div class="problemas__cuadricula">
+      {
+        data.problems.items.map((item) => (
+          <article class="tarjeta-problema">
+            <span class="tarjeta-problema__icono">•</span>
+            <p>{item}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="vision-general">
+    <div class="vision-general__contenedor">
+      <div class="vision-general__contenido">
+        <span class="etiqueta-seccion">{data.overview.kicker}</span>
+        <h2>{data.overview.title}</h2>
+        <p>{data.overview.text1}</p>
+        <p>{data.overview.text2}</p>
+      </div>
+
+      <div class="vision-general__estadisticas">
+        {
+          data.overview.stats.map((item) => (
+            <div class="tarjeta-estadistica">
+              <strong>{item.label}</strong>
+              <span>{item.value}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="beneficios">
+    <div class="cabecera-seccion">
+      <span class="cabecera-seccion__kicker">{data.benefits.kicker}</span>
+      <h2>{data.benefits.title}</h2>
+    </div>
+
+    <div class="beneficios__cuadricula">
+      {
+        data.benefits.items.map((item) => (
+          <article class="tarjeta-beneficio">
+            <div class="tarjeta-beneficio__superior">
+              <span class="tarjeta-beneficio__check">✓</span>
+              <h3>{item.title}</h3>
+            </div>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="aplicaciones" id="aplicaciones">
+    <div class="cabecera-seccion">
+      <span class="cabecera-seccion__kicker">{data.applications.kicker}</span>
+      <h2>{data.applications.title}</h2>
+    </div>
+
+    <div class="aplicaciones__cuadricula">
+      {
+        data.applications.items.map((item) => {
+          const Icono = iconos[item.icon as keyof typeof iconos];
+
+          return (
+            <article class="tarjeta-aplicacion">
+              <span class="tarjeta-aplicacion__icono">
+                <Icono size={22} stroke-width={2} />
+              </span>
+              <p>{item.text}</p>
+            </article>
+          );
+        })
+      }
+    </div>
+  </section>
+
+  <section class="proceso">
+    <div class="cabecera-seccion">
+      <span class="cabecera-seccion__kicker">{data.process.kicker}</span>
+      <h2>{data.process.title}</h2>
+    </div>
+
+    <div class="proceso__cuadricula">
+      {
+        data.process.items.map((item) => (
+          <article class="tarjeta-proceso">
+            <span class="tarjeta-proceso__paso">{item.step}</span>
+            <h3>{item.title}</h3>
+            <p>{item.text}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="comparativa">
+    <div class="cabecera-seccion">
+      <span class="cabecera-seccion__kicker">{data.comparison.kicker}</span>
+      <h2>{data.comparison.title}</h2>
+    </div>
+
+    <div class="comparativa__lista">
+      {
+        data.comparison.rows.map((row) => (
+          <article class="tarjeta-comparativa">
+            <div class="tarjeta-comparativa__aspecto">
+              <span class="tarjeta-comparativa__etiqueta">
+                {data.comparison.headers.aspect}
+              </span>
+              <h3>{row.aspect}</h3>
+            </div>
+
+            <div class="tarjeta-comparativa__columnas">
+              <div class="tarjeta-comparativa__col tarjeta-comparativa__col--solucion">
+                <span class="tarjeta-comparativa__col-titulo">
+                  {data.comparison.headers.solution}
+                </span>
+                <p>
+                  <span class="tarjeta-comparativa__icono tarjeta-comparativa__icono--ok">
+                    ✓
+                  </span>
+                  {row.solution}
+                </p>
+              </div>
+
+              <div class="tarjeta-comparativa__col tarjeta-comparativa__col--otros">
+                <span class="tarjeta-comparativa__col-titulo">
+                  {data.comparison.headers.other}
+                </span>
+                <p>
+                  <span class="tarjeta-comparativa__icono tarjeta-comparativa__icono--otros">
+                    —
+                  </span>
+                  {row.other}
+                </p>
+              </div>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="preguntas-frecuentes">
+    <div class="cabecera-seccion">
+      <span class="cabecera-seccion__kicker">{data.faq.kicker}</span>
+      <h2>{data.faq.title}</h2>
+    </div>
+
+    <div class="preguntas-frecuentes__lista">
+      {
+        data.faq.items.map((item) => (
+          <details class="item-faq">
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="cta-solucion">
+    <div class="cta-solucion__caja">
+      <div class="cta-solucion__contenido">
+        <span class="cta-solucion__kicker">{data.cta.kicker}</span>
+        <h2>{data.cta.title}</h2>
+        <p>{data.cta.text}</p>
+      </div>
+
+      <a href="/contacto/" class="boton boton--claro">
+        {data.cta.button}
+      </a>
+    </div>
+  </section>
+</main>
+
+<style>
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+
+  .pagina-solucion {
+    background:
+      radial-gradient(
+        circle at top left,
+        rgba(20, 91, 154, 0.08),
+        transparent 28%
+      ),
+      linear-gradient(180deg, #ffffff 0%, #f7f9fc 100%);
+  }
+
+  .hero-solucion,
+  .problemas,
+  .vision-general,
+  .beneficios,
+  .aplicaciones,
+  .proceso,
+  .comparativa,
+  .preguntas-frecuentes,
+  .cta-solucion {
+    padding: 5rem var(--container-padding);
+  }
+
+  .hero-solucion {
+    padding-top: 7rem;
+  }
+
+  .hero-solucion__contenedor,
+  .vision-general__contenedor,
+  .cabecera-seccion,
+  .preguntas-frecuentes__lista,
+  .cta-solucion__caja,
+  .problemas__cuadricula,
+  .beneficios__cuadricula,
+  .aplicaciones__cuadricula,
+  .proceso__cuadricula,
+  .comparativa__lista {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .hero-solucion__contenedor {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .hero-solucion__ceja,
+  .cabecera-seccion__kicker,
+  .etiqueta-seccion,
+  .cta-solucion__kicker {
+    display: inline-block;
+    margin-bottom: 0.9rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+  }
+
+  .hero-solucion__titulo {
+    font-size: clamp(2.2rem, 4vw, 4rem);
+    line-height: 1.08;
+    color: var(--color-primary);
+    margin-bottom: 1.25rem;
+    max-width: 15ch;
+  }
+
+  .hero-solucion__texto {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: #55606f;
+    max-width: 60ch;
+    margin-bottom: 2rem;
+  }
+
+  .hero-solucion__acciones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0.95rem 1.5rem;
+    border-radius: 12px;
+    text-decoration: none;
+    font-weight: 700;
+    transition:
+      transform 0.25s ease,
+      box-shadow 0.25s ease,
+      background 0.25s ease;
+  }
+
+  .boton:hover {
+    transform: translateY(-2px);
+  }
+
+  .boton--primario {
+    background: var(--color-primary);
+    color: white;
+    box-shadow: 0 12px 30px rgba(20, 91, 154, 0.18);
+  }
+
+  .boton--secundario {
+    background: rgba(20, 91, 154, 0.08);
+    color: var(--color-primary);
+    border: 1px solid rgba(20, 91, 154, 0.12);
+  }
+
+  .boton--claro {
+    background: white;
+    color: var(--color-primary);
+    white-space: nowrap;
+  }
+
+  .hero-solucion__envoltura-imagen {
+    position: relative;
+    background: linear-gradient(180deg, #ffffff 0%, #edf3f9 100%);
+    border: 1px solid rgba(20, 91, 154, 0.08);
+    border-radius: 24px;
+    padding: 1rem;
+    box-shadow: 0 24px 60px rgba(10, 32, 58, 0.08);
+  }
+
+  .hero-solucion__envoltura-imagen img {
+    width: 100%;
+    height: 520px;
+    object-fit: cover;
+    border-radius: 18px;
+    display: block;
+  }
+
+  .cabecera-seccion {
+    text-align: center;
+    margin-bottom: 2.5rem;
+  }
+
+  .cabecera-seccion h2,
+  .vision-general__contenido h2,
+  .cta-solucion__contenido h2 {
+    font-size: clamp(1.75rem, 3vw, 2.6rem);
+    line-height: 1.2;
+    color: var(--color-primary);
+    margin: 0;
+  }
+
+  .problemas__cuadricula,
+  .beneficios__cuadricula,
+  .aplicaciones__cuadricula,
+  .proceso__cuadricula {
+    display: grid;
+    gap: 1.3rem;
+  }
+
+  .problemas__cuadricula {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .beneficios__cuadricula {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .aplicaciones__cuadricula {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .proceso__cuadricula {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .tarjeta-problema,
+  .tarjeta-beneficio,
+  .tarjeta-aplicacion,
+  .tarjeta-proceso,
+  .tarjeta-estadistica {
+    background: white;
+    border: 1px solid rgba(20, 91, 154, 0.08);
+    border-radius: 18px;
+    box-shadow: 0 12px 30px rgba(10, 32, 58, 0.04);
+  }
+
+  .tarjeta-problema {
+    padding: 1.4rem;
+    display: flex;
+    gap: 0.9rem;
+    align-items: flex-start;
+  }
+
+  .tarjeta-problema__icono {
+    color: var(--color-accent);
+    font-size: 1.4rem;
+    line-height: 1;
+    margin-top: -0.05rem;
+    flex-shrink: 0;
+  }
+
+  .tarjeta-problema p,
+  .tarjeta-beneficio p,
+  .tarjeta-aplicacion p,
+  .tarjeta-proceso p,
+  .vision-general__contenido p,
+  .item-faq p,
+  .cta-solucion__contenido p {
+    color: #596474;
+    line-height: 1.75;
+    margin: 0;
+  }
+
+  .vision-general__contenedor {
+    display: grid;
+    grid-template-columns: 1fr 0.9fr;
+    gap: 2rem;
+    align-items: center;
+  }
+
+  .vision-general__contenido {
+    max-width: 62ch;
+  }
+
+  .vision-general__contenido p {
+    margin-top: 1.1rem;
+  }
+
+  .vision-general__estadisticas {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .tarjeta-estadistica {
+    padding: 1.4rem 1.5rem;
+  }
+
+  .tarjeta-estadistica strong {
+    display: block;
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .tarjeta-estadistica span {
+    color: #627081;
+  }
+
+  .tarjeta-beneficio {
+    padding: 1.5rem;
+  }
+
+  .tarjeta-beneficio__superior {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.8rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .tarjeta-beneficio__check {
+    display: inline-flex;
+    width: 30px;
+    height: 30px;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 168, 107, 0.1);
+    color: var(--color-accent);
+    border-radius: 999px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  .tarjeta-beneficio h3,
+  .tarjeta-proceso h3 {
+    margin: 0;
+    color: var(--color-primary);
+    font-size: 1.1rem;
+    line-height: 1.4;
+  }
+
+  .tarjeta-aplicacion {
+    padding: 1.4rem 1.2rem;
+    text-align: center;
+    transition: all 0.25s ease;
+  }
+
+  .tarjeta-aplicacion:hover {
+    transform: translateY(-4px);
+  }
+
+  .tarjeta-aplicacion__icono {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    margin-bottom: 0.9rem;
+    border-radius: 14px;
+    background: rgba(20, 91, 154, 0.08);
+    color: var(--color-primary);
+  }
+
+  .tarjeta-proceso {
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .tarjeta-proceso__paso {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: var(--color-accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 0.9rem;
+  }
+
+  .comparativa__lista {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .tarjeta-comparativa {
+    background: white;
+    border: 1px solid rgba(20, 91, 154, 0.08);
+    border-radius: 20px;
+    padding: 1.4rem;
+    box-shadow: 0 12px 30px rgba(10, 32, 58, 0.04);
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 1.25rem;
+    align-items: stretch;
+    transition: all 0.25s ease;
+  }
+
+  .tarjeta-comparativa:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 36px rgba(10, 32, 58, 0.08);
+  }
+
+  .tarjeta-comparativa__aspecto {
+    padding: 1rem;
+    border-radius: 16px;
+    background: linear-gradient(180deg, #f7fbff 0%, #eef5fb 100%);
+    border: 1px solid rgba(20, 91, 154, 0.08);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .tarjeta-comparativa__etiqueta {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--color-accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .tarjeta-comparativa__aspecto h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    line-height: 1.4;
+    color: var(--color-primary);
+  }
+
+  .tarjeta-comparativa__columnas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+  }
+
+  .tarjeta-comparativa__col {
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    min-height: 100%;
+  }
+
+  .tarjeta-comparativa__col--solucion {
+    background: rgba(0, 168, 107, 0.06);
+    border: 1px solid rgba(0, 168, 107, 0.12);
+  }
+
+  .tarjeta-comparativa__col--otros {
+    background: rgba(20, 91, 154, 0.04);
+    border: 1px solid rgba(20, 91, 154, 0.08);
+  }
+
+  .tarjeta-comparativa__col-titulo {
+    display: inline-block;
+    margin-bottom: 0.75rem;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--color-primary);
+  }
+
+  .tarjeta-comparativa__col p {
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.7rem;
+    color: #596474;
+    line-height: 1.7;
+  }
+
+  .tarjeta-comparativa__icono {
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-weight: 800;
+    font-size: 0.9rem;
+    margin-top: 0.1rem;
+  }
+
+  .tarjeta-comparativa__icono--ok {
+    background: rgba(0, 168, 107, 0.14);
+    color: var(--color-accent);
+  }
+
+  .tarjeta-comparativa__icono--otros {
+    background: rgba(20, 91, 154, 0.08);
+    color: var(--color-primary);
+  }
+
+  .preguntas-frecuentes__lista {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .item-faq {
+    background: white;
+    border: 1px solid rgba(20, 91, 154, 0.08);
+    border-radius: 16px;
+    padding: 1.2rem 1.3rem;
+    box-shadow: 0 10px 25px rgba(10, 32, 58, 0.04);
+  }
+
+  .item-faq summary {
+    cursor: pointer;
+    list-style: none;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.5;
+  }
+
+  .item-faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .item-faq p {
+    margin-top: 0.9rem;
+  }
+
+  .cta-solucion {
+    padding-bottom: 6rem;
+  }
+
+  .cta-solucion__caja {
+    background: linear-gradient(135deg, var(--color-primary) 0%, #0f4e83 100%);
+    border-radius: 24px;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 20px 45px rgba(15, 78, 131, 0.22);
+  }
+
+  .cta-solucion__contenido h2,
+  .cta-solucion__contenido p,
+  .cta-solucion__kicker {
+    color: white;
+  }
+
+  .cta-solucion__contenido p {
+    max-width: 62ch;
+    opacity: 0.92;
+    margin-top: 0.8rem;
+  }
+
+  @media (max-width: 1024px) {
+    .hero-solucion__contenedor,
+    .vision-general__contenedor {
+      grid-template-columns: 1fr;
+    }
+
+    .problemas__cuadricula,
+    .beneficios__cuadricula,
+    .aplicaciones__cuadricula,
+    .proceso__cuadricula {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 900px) {
+    .tarjeta-comparativa {
+      grid-template-columns: 1fr;
+    }
+
+    .tarjeta-comparativa__columnas {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .hero-solucion,
+    .problemas,
+    .vision-general,
+    .beneficios,
+    .aplicaciones,
+    .proceso,
+    .preguntas-frecuentes,
+    .cta-solucion {
+      padding: 3.5rem var(--container-padding-mobile);
+    }
+
+    .problemas__cuadricula,
+    .beneficios__cuadricula,
+    .aplicaciones__cuadricula,
+    .proceso__cuadricula {
+      grid-template-columns: 1fr;
+    }
+
+    .hero-solucion__envoltura-imagen img {
+      height: 340px;
+    }
+
+    .cta-solucion__caja {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.6rem;
+    }
+
+    .boton {
+      width: 100%;
+    }
+  }
+</style>

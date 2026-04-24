@@ -1,0 +1,265 @@
+---
+interface Props {
+  posts: any[];
+  paginaActual: number;
+  totalPaginas: number;
+  rutaBase: string;
+}
+
+const { posts, paginaActual, totalPaginas, rutaBase } = Astro.props;
+const enlacesPaginacion = Array.from({ length: totalPaginas }, (_, i) => i + 1);
+
+const blogTexto = {
+  titulo: "Panel para Cuarto Frío",
+  descripcion:
+    "Información sobre paneles para cámaras frigoríficas, aislamiento industrial y proyectos de refrigeración en México.",
+  botonLeerMas: "Leer más →",
+  botonSiguiente: "Siguiente →",
+  botonAnterior: "← Anterior",
+};
+
+const rutaBlog = "/blog/";
+const rutaPaginas = "/blog/page/";
+const localeFecha = "es-MX";
+---
+
+<main class="blog">
+  <div class="blog__contenedor">
+    <div class="blog__encabezado">
+      <h1 class="blog__titulo">{blogTexto.titulo}</h1>
+      <p class="blog__descripcion">
+        {blogTexto.descripcion}
+      </p>
+    </div>
+
+    <div class="blog__grid">
+      {
+        posts.map((post: any) => (
+          <article class="tarjeta-blog">
+            {post._embedded?.["wp:featuredmedia"]?.[0]?.source_url && (
+              <img
+                src={post._embedded["wp:featuredmedia"][0].source_url}
+                alt={post.title.rendered}
+                class="tarjeta-blog__imagen"
+              />
+            )}
+
+            <div class="tarjeta-blog__contenido">
+              <p class="tarjeta-blog__fecha">
+                {new Date(post.date).toLocaleDateString(localeFecha, {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
+              </p>
+
+              <h2 class="tarjeta-blog__titulo">
+                <a
+                  href={`${rutaBlog}${post.slug}/`}
+                  set:html={post.title.rendered}
+                />
+              </h2>
+
+              <p
+                class="tarjeta-blog__descripcion"
+                set:html={post.excerpt.rendered}
+              />
+
+              <a
+                href={`${rutaBlog}${post.slug}/`}
+                class="tarjeta-blog__enlace"
+              >
+                {blogTexto.botonLeerMas}
+              </a>
+            </div>
+          </article>
+        ))
+      }
+    </div>
+
+    {
+      totalPaginas > 1 && (
+        <nav class="paginacion" aria-label="Paginación del blog">
+          {paginaActual > 1 && (
+            <a
+              href={
+                paginaActual === 2
+                  ? rutaBlog
+                  : `${rutaPaginas}${paginaActual - 1}/`
+              }
+              class="paginacion__boton"
+            >
+              {blogTexto.botonAnterior}
+            </a>
+          )}
+
+          <div class="paginacion__paginas">
+            {enlacesPaginacion.map((numeroPagina) => (
+              <a
+                href={
+                  numeroPagina === 1
+                    ? rutaBlog
+                    : `${rutaPaginas}${numeroPagina}/`
+                }
+                class={`paginacion__pagina ${numeroPagina === paginaActual ? "active" : ""}`}
+              >
+                {numeroPagina}
+              </a>
+            ))}
+          </div>
+
+          {paginaActual < totalPaginas && (
+            <a
+              href={`${rutaPaginas}${paginaActual + 1}/`}
+              class="paginacion__boton"
+            >
+              {blogTexto.botonSiguiente}
+            </a>
+          )}
+        </nav>
+      )
+    }
+  </div>
+</main>
+
+<style>
+  .blog {
+    padding: 4rem 2rem;
+    background-color: #f8f9fa;
+  }
+
+  .blog__contenedor {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .blog__encabezado {
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  .blog__titulo {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+  }
+
+  .blog__descripcion {
+    max-width: 700px;
+    margin: 0 auto;
+    color: #555;
+    line-height: 1.7;
+  }
+
+  .blog__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+  }
+
+  .tarjeta-blog {
+    background: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  .tarjeta-blog__imagen {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+  }
+
+  .tarjeta-blog__contenido {
+    padding: 1.5rem;
+  }
+
+  .tarjeta-blog__fecha {
+    font-size: 0.85rem;
+    color: #777;
+    margin-bottom: 0.75rem;
+  }
+
+  .tarjeta-blog__titulo {
+    font-size: 1.2rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .tarjeta-blog__titulo a {
+    color: var(--color-primary);
+  }
+
+  .tarjeta-blog__descripcion {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+  }
+
+  .tarjeta-blog__enlace {
+    color: var(--color-accent);
+    font-weight: 700;
+  }
+
+  .paginacion {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+  }
+
+  .paginacion__boton {
+    padding: 0.6rem 1.2rem;
+    border: 2px solid var(--color-primary);
+    border-radius: 6px;
+    color: var(--color-primary);
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .paginacion__boton:hover {
+    background-color: var(--color-primary);
+    color: white;
+  }
+
+  .paginacion__paginas {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .paginacion__pagina {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    color: var(--color-primary);
+    font-weight: 600;
+    transition: all 0.2s;
+  }
+
+  .paginacion__pagina:hover {
+    border-color: var(--color-primary);
+  }
+
+  .paginacion__pagina.active {
+    background-color: var(--color-primary);
+    color: white;
+    border-color: var(--color-primary);
+  }
+
+  @media (max-width: 900px) {
+    .blog__grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .blog__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

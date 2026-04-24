@@ -2,13 +2,15 @@
 import { Image } from "astro:assets";
 import logo from "../assets/logo.svg";
 import Menu from "./Menu.astro";
+
+const base = import.meta.env.BASE_URL;
 ---
 
 <header class="header">
     <div class="header__container">
         <div class="header__logo">
             <!-- <span class="header__logo-text">Panel Para Cuarto Frío</span> -->
-            <a href="/">
+            <a href={base}>
                 <Image
                     src={logo}
                     alt="Logo"
