@@ -9,12 +9,16 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "build:prod": "cross-env SITE=https://landing.mequipo.com BASE=/ astro build",
+    "build:test": "cross-env SITE=https://landing.mequipo.com BASE=/landings/purandpirinsulation/ astro build"
   },
   "dependencies": {
-    "@astrojs/sitemap": "^3.7.2",
+    "@astrojs/sitemap": "^3.7.3",
     "@lucide/astro": "^1.8.0",
-    "astro": "^6.1.5",
+    "astro": "^6.4.7",
+    "astro-blog-kit": "^0.3.0",
+    "cross-env": "^10.1.0",
     "decap-cms-app": "^3.11.0",
     "leaflet": "^1.9.4"
   }

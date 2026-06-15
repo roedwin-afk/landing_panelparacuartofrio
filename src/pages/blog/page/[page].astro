@@ -1,48 +1,46 @@
 ---
+import { BlogList } from "astro-blog-kit/components";
+import { createWPClient, getStaticPathsForPages } from "astro-blog-kit/utils";
+import config from "../../../../blog.config";
 import Layout from "../../../layouts/Layout.astro";
 import Header from "../../../components/Header.astro";
 import Footer from "../../../components/Footer.astro";
-import ListadoBlogs from "../../../components/ListadoBlogs.astro";
-import { MOCK_POSTS } from "../../../data/posts";
 
 export async function getStaticPaths() {
-  const POSTS_POR_PAGINA = 6;
-  const todosLosPosts = MOCK_POSTS;
-  const totalPaginas = Math.ceil(todosLosPosts.length / POSTS_POR_PAGINA);
-
-  return Array.from({ length: totalPaginas }, (_, i) => ({
-    params: { page: String(i + 1) },
-    props: {
-      posts: todosLosPosts.slice(i * POSTS_POR_PAGINA, (i + 1) * POSTS_POR_PAGINA),
-      paginaActual: i + 1,
-      totalPaginas,
-    },
-  }));
+  const wp = createWPClient(config.wpUrl);
+  const posts = await wp.getAllPosts();
+  return getStaticPathsForPages(posts, { postsPerPage: config.postsPerPage ?? 5 });
 }
 
+const { posts, currentPage, totalPages } = Astro.props;
 
-const { posts, paginaActual, totalPaginas } = Astro.props;
-
-const blogTexto = {
-  titulo: "Panel para Techo",
-  descripcion:
-    "Soluciones de panel de techo con aislamiento térmico, resistencia estructural e instalación rápida para proyectos industriales y comerciales en México.",
+const bt = {
+  blog: {
+    tagline: "Nuestro Blog",
+    title_line1: "Últimos",
+    title_line2: "Artículos",
+    description: "Bienvenido a nuestro blog.",
+    btncta: "Leer más",
+    btn_prev: "Anterior",
+    btn_next: "Siguiente",
+  },
 };
-const basePath = '/blog/page/';
+
+const base = import.meta.env.BASE_URL;
 ---
 
-<Layout
-  title={`Blog${paginaActual > 1 ? ` — Página ${paginaActual}` : ""} | ${blogTexto.titulo}`}
-  description={blogTexto.descripcion}
->
+<Layout>
   <Header />
-
-  <ListadoBlogs
+  <BlogList
     posts={posts}
-    paginaActual={paginaActual}
-    totalPaginas={totalPaginas}
-    rutaBase={basePath}
+    currentPage={currentPage}
+    totalPages={totalPages}
+    basePath={`${base}blog/page/`}
+    blogBase={`${base}blog/`}
+    dateLocale={config.locale ?? "en"}
+    t={bt}
+    locale={config.locale ?? "en"}
+    layout={config.defaultLayout ?? "magazine"}
   />
-
   <Footer />
 </Layout>
